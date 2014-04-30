@@ -1,3 +1,5 @@
 # Ignoring random dev files
 *~
 .swp
+
+/vendor/
