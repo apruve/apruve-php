@@ -1,6 +1,6 @@
 <?php
 
-require_once dirname(__FILE__) . '/../Apruve/ApruveClient.php';
+require_once dirname(__FILE__) . '/../../src/Apruve/ApruveClient.php';
 
 class ApruveClientTest extends PHPUnit_Framework_TestCase {
   protected $object;
