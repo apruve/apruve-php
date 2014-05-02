@@ -21,15 +21,30 @@ class ApruveObject {
     return $ret;
   }
 
-  public function ToJsonString()
+  public function toJsonArr()
   {
     $jsonArr = [];
     $called_class = get_called_class();
-    foreach ($called_class::$hash_order as $key)
+    foreach ($called_class::$json_fields as $key)
     {
-      $jsonArr[$key] = $this->$key;
+      if (gettype($this->$key) == "array")
+      {
+        $jsonArr[$key] = [];
+        foreach($this->$key as $item)
+        {
+          array_push($jsonArr[$key], $item->toJsonArr());
+        }
+      }
+      else
+      {
+        $jsonArr[$key] = $this->$key;
+      }
     }
-    return json_encode($jsonArr);
+    return $jsonArr;
+  }
 
+  public function ToJsonString()
+  {
+    return json_encode($this->toJsonArr());
   }  
 }

@@ -19,6 +19,7 @@ class ApruveClient {
   static function init($ApiKey) {
     $apruveClient = self::getInstance();
     $apruveClient->setApiKey($ApiKey);
+    return $apruveClient;
   }
 
   function getApiKey() {

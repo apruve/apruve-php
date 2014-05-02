@@ -38,7 +38,7 @@ class LineItemTest extends PHPUnit_Framework_TestCase {
       'description',
       'variant_info',
       'sku',
-      'vender',
+      'vendor',
       'view_product_url',
     ));
     $this->assertEquals(11, count($item_vars));

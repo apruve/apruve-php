@@ -14,6 +14,10 @@ class TestClass extends ApruveObject
     'third',
   ];
 
+  protected static $json_fields = [
+    'second',
+    'first'
+  ];
 }
 
 class ApruveObjectTest extends PHPUnit_Framework_TestCase
@@ -48,8 +52,8 @@ class ApruveObjectTest extends PHPUnit_Framework_TestCase
   public function testToJsonString()
   {
     $this->assertJsonStringEqualsJsonString(
-      '{"first": 1, "second": "second", "third": 3 }',
-      $this->object->toJsonString());
+      '{"first": 1, "second": "second" }',
+      $this->object->toJsonString()
+    );
   }
-
 }

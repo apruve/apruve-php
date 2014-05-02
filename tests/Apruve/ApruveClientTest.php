@@ -14,8 +14,8 @@ class ApruveClientTest extends PHPUnit_Framework_TestCase {
   }
 
   function testCreateAClient() {
-    $client = ApruveClient.init(self::$AN_API_KEY);
-    $this->assertEquals(self::$AN_API_KEY, ApruveClient.getInstance().getApiKey());
+    $client = ApruveClient::init(self::$AN_API_KEY);
+    $this->assertEquals(self::$AN_API_KEY, ApruveClient::getInstance()->getApiKey());
   }
 }
 
