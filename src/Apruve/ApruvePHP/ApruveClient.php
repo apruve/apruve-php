@@ -1,6 +1,6 @@
 <?php
 
-namespace Apruve;
+namespace Apruve\ApruvePHP;
 
 class ApruveClient {
 

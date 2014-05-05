@@ -1,7 +1,8 @@
 <?php
-require_once 'ApruveObject.php';
 
-namespace Apruve;
+namespace Apruve\ApruvePHP;
+
+require_once 'ApruveObject.php';
 
 class LineItem extends ApruveObject {
 

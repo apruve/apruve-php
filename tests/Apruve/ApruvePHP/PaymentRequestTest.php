@@ -1,8 +1,12 @@
 <?php
 
-require_once dirname(__FILE__) . '/../../src/Apruve/PaymentRequest.php';
-require_once dirname(__FILE__) . '/../../src/Apruve/LineItem.php';
-require_once dirname(__FILE__) . '/../../src/Apruve/ApruveClient.php';
+require_once dirname(__FILE__) . '/../../../src/Apruve/ApruvePHP/PaymentRequest.php';
+require_once dirname(__FILE__) . '/../../../src/Apruve/ApruvePHP/LineItem.php';
+require_once dirname(__FILE__) . '/../../../src/Apruve/ApruvePHP/ApruveClient.php';
+
+use Apruve\ApruvePHP\PaymentRequest;
+use Apruve\ApruvePHP\LineItem;
+use Apruve\ApruvePHP\ApruveClient;
 
 class PaymentRequestTest extends PHPUnit_Framework_TestCase
 {
@@ -105,6 +109,28 @@ class PaymentRequestTest extends PHPUnit_Framework_TestCase
       $this->pr->toSecureHash()
     );
   }
+
+  public function testAddLineItem()
+  {
+    $item_count = count($this->pr->line_items);
+    $this->pr->addLineItem(
+      new LineItem([
+        'title' => 'A new title',
+        'amount_cents' => 4521,
+      ])
+    );
+    $this->assertEquals($item_count + 1, count($this->pr->line_items));
+    
+  }
+
+  public function addLineItemOnlyAllowsLineItems()
+  {
+    $this->setExpectedException('InvalidArgumentException');
+    $this->assertEquals(false,$this->pr->addLineItem(
+      ['title' => 'a title','amount_cents' => 423,]));
+  }
+
+
       
 
 }

@@ -1,8 +1,8 @@
-watch("src/Apruve/(.*).php") do |match|
-  run_test %{tests/Apruve/#{match[1]}Test.php}
+watch("src/Apruve/ApruvePHP/(.*).php") do |match|
+  run_test %{tests/Apruve/ApruvePHP/#{match[1]}Test.php}
 end
 
-watch("tests/Apruve/.*Test.php") do |match|
+watch("tests/Apruve/ApruvePHP/.*Test.php") do |match|
   run_test match[0]
 end
 
