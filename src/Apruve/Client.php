@@ -7,7 +7,7 @@ class Client
   private static $instance;
   private $ApiKey;
   private $baseUrl;
-  public const $apiPath = '/api/v3';
+  const apiPath = '/api/v3';
 
   private function __construct()
   {
@@ -56,7 +56,7 @@ class Client
 
   protected function restRequest($path)
   {
-    $client = curl_init($this->baseUrl.$this->apiPath.$path);
+    $client = curl_init($this->baseUrl.Client::apiPath.$path);
     curl_setopt($client, CURLOPT_HTTPHEADER, [
       'Content-Type: application/json',
       "Apruve-Api-Key: $this->ApiKey",]);
