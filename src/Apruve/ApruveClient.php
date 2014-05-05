@@ -1,5 +1,7 @@
 <?php
 
+namespace Apruve;
+
 class ApruveClient {
 
   private static $instance;

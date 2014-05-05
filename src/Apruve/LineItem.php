@@ -1,6 +1,8 @@
 <?php
 require_once 'ApruveObject.php';
 
+namespace Apruve;
+
 class LineItem extends ApruveObject {
 
   var $title;

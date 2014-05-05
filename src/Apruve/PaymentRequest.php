@@ -2,6 +2,8 @@
 
 require_once 'ApruveObject.php';
 
+namespace Apruve;
+
 class PaymentRequest extends ApruveObject
 {
 

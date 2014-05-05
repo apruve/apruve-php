@@ -1,5 +1,7 @@
 <?php
 
+namespace Apruve;
+
 class ApruveObject {
  
   public function __construct($values=[]) 
