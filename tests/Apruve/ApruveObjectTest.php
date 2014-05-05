@@ -1,8 +1,8 @@
 <?php
 
-require_once dirname(__FILE__) . '/../../../src/Apruve/ApruvePHP/ApruveObject.php';
+require_once dirname(__FILE__) . '/../../src/Apruve/ApruveObject.php';
 
-use Apruve\ApruvePHP\ApruveObject;
+use Apruve\ApruveObject;
 
 class TestClass extends ApruveObject
 {
@@ -51,11 +51,11 @@ class ApruveObjectTest extends PHPUnit_Framework_TestCase
       '1second3', $this->object->toHashString());
   }
 
-  public function testToJsonString()
+  public function testToJson()
   {
     $this->assertJsonStringEqualsJsonString(
       '{"first": 1, "second": "second" }',
-      $this->object->toJsonString()
+      $this->object->toJson()
     );
   }
 }

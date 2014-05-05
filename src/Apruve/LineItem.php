@@ -1,6 +1,6 @@
 <?php
 
-namespace Apruve\ApruvePHP;
+namespace Apruve;
 
 require_once 'ApruveObject.php';
 

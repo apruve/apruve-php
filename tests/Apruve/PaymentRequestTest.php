@@ -1,12 +1,11 @@
 <?php
 
-require_once dirname(__FILE__) . '/../../../src/Apruve/ApruvePHP/PaymentRequest.php';
-require_once dirname(__FILE__) . '/../../../src/Apruve/ApruvePHP/LineItem.php';
-require_once dirname(__FILE__) . '/../../../src/Apruve/ApruvePHP/ApruveClient.php';
+require_once dirname(__FILE__) . '/../../src/Apruve/PaymentRequest.php';
+require_once dirname(__FILE__) . '/../../src/Apruve/LineItem.php';
+require_once dirname(__FILE__) . '/../../src/Apruve/Client.php';
 
-use Apruve\ApruvePHP\PaymentRequest;
-use Apruve\ApruvePHP\LineItem;
-use Apruve\ApruvePHP\ApruveClient;
+use Apruve\PaymentRequest;
+use Apruve\LineItem;
 
 class PaymentRequestTest extends PHPUnit_Framework_TestCase
 {
@@ -62,7 +61,7 @@ class PaymentRequestTest extends PHPUnit_Framework_TestCase
     );
   }
 
-  public function testToJsonString()
+  public function testToJson()
   {
     $this->assertJsonStringEqualsJsonString(
       '{
@@ -89,7 +88,7 @@ class PaymentRequestTest extends PHPUnit_Framework_TestCase
           }
         ]
        }',
-       $this->pr->toJsonString()
+       $this->pr->toJson()
      );
   }
 
@@ -103,7 +102,7 @@ class PaymentRequestTest extends PHPUnit_Framework_TestCase
 
   public function testToSecureHash()
   {
-    ApruveClient::getInstance()->setApiKey('a key');
+    Apruve\Client::getInstance()->setApiKey('a key');
     $this->assertEquals(
       hash('sha256', 'a keyasdf12346000USD5001000a title4500'),
       $this->pr->toSecureHash()

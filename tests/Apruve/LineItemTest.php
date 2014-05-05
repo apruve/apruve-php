@@ -2,6 +2,8 @@
 
 require_once dirname(__FILE__) . '/../../src/Apruve/LineItem.php';
 
+use Apruve\LineItem;
+
 class LineItemTest extends PHPUnit_Framework_TestCase {
 
   protected function setUp() {
@@ -67,7 +69,7 @@ class LineItemTest extends PHPUnit_Framework_TestCase {
           "sku": "sku",
           "vendor": "ACME",
           "view_product_url": "A Url."
-       }', $this->item->toJsonString()
+       }', $this->item->toJson()
     );
   }
 

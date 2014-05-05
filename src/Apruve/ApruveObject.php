@@ -1,6 +1,6 @@
 <?php
 
-namespace Apruve\ApruvePHP;
+namespace Apruve;
 
 class ApruveObject {
  
@@ -45,7 +45,7 @@ class ApruveObject {
     return $jsonArr;
   }
 
-  public function ToJsonString()
+  public function toJson()
   {
     return json_encode($this->toJsonArray());
   }  

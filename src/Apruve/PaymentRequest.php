@@ -1,6 +1,6 @@
 <?php
 
-namespace Apruve\ApruvePHP;
+namespace Apruve;
 
 require_once 'ApruveObject.php';
 
@@ -54,13 +54,13 @@ class PaymentRequest extends ApruveObject
 
   public function toSecureHash() 
   {
-    $apiKey = ApruveClient::getInstance()->getApiKey();
+    $apiKey = Client::getInstance()->getApiKey();
     return hash("sha256", $apiKey.$this->toSecureString());
   }
 
   public function addLineItem($line_item)
   {
-    if (get_class($line_item) == 'Apruve\ApruvePHP\LineItem')
+    if (get_class($line_item) == 'Apruve\LineItem')
     {
       return array_push($this->line_items, $line_item);
     }

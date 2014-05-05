@@ -1,8 +1,8 @@
 <?php
 
-namespace Apruve\ApruvePHP;
+namespace Apruve;
 
-class ApruveClient {
+class Client {
 
   private static $instance;
   private $ApiKey;
@@ -13,7 +13,7 @@ class ApruveClient {
 
   static function getInstance() {
     if(self::$instance === NULL) {
-      self::$instance = new ApruveClient();
+      self::$instance = new Client();
     }
     return self::$instance;
   }
