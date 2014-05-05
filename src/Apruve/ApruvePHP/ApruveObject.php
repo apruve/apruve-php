@@ -23,7 +23,7 @@ class ApruveObject {
     return $ret;
   }
 
-  public function toJsonArr()
+  public function toJsonArray()
   {
     $jsonArr = [];
     $called_class = get_called_class();
@@ -34,7 +34,7 @@ class ApruveObject {
         $jsonArr[$key] = [];
         foreach($this->$key as $item)
         {
-          array_push($jsonArr[$key], $item->toJsonArr());
+          array_push($jsonArr[$key], $item->toJsonArray());
         }
       }
       else
@@ -47,6 +47,6 @@ class ApruveObject {
 
   public function ToJsonString()
   {
-    return json_encode($this->toJsonArr());
+    return json_encode($this->toJsonArray());
   }  
 }

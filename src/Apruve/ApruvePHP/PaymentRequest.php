@@ -55,6 +55,7 @@ class PaymentRequest extends ApruveObject
   public function toSecureHash() 
   {
     $apiKey = ApruveClient::getInstance()->getApiKey();
+    if (count($apiKey) ==
     return hash("sha256", $apiKey.$this->toSecureString());
   }
 

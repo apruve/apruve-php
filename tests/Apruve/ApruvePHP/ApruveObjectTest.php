@@ -1,6 +1,8 @@
 <?php
 
-require_once dirname(__FILE__) . '/../../src/Apruve/ApruveObject.php';
+require_once dirname(__FILE__) . '/../../../src/Apruve/ApruvePHP/ApruveObject.php';
+
+use Apruve\ApruvePHP\ApruveObject;
 
 class TestClass extends ApruveObject
 {
