@@ -54,7 +54,7 @@ class PaymentRequest extends ApruveObject
 
   public function toSecureHash() 
   {
-    $apiKey = Client::getInstance()->getApiKey();
+    $apiKey = (new Client())->getApiKey();
     return hash("sha256", $apiKey.$this->toSecureString());
   }
 

@@ -102,7 +102,7 @@ class PaymentRequestTest extends PHPUnit_Framework_TestCase
 
   public function testToSecureHash()
   {
-    Apruve\Client::getInstance()->setApiKey('a key');
+    Apruve\Client::init('a key', Apruve\Environment::DEV);
     $this->assertEquals(
       hash('sha256', 'a keyasdf12346000USD5001000a title4500'),
       $this->pr->toSecureHash()

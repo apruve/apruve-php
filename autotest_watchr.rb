@@ -14,7 +14,7 @@ def run_test(file)
   end
      
   puts "Running #{file}"
-  result = `phpunit #{file}`
+  result = `vendor/bin/phpunit #{file}`
   puts result
 
   if result.match /OK/

@@ -8,10 +8,8 @@ class ApruveClientTest extends PHPUnit_Framework_TestCase {
 
   protected function setUp() 
   {
-    $reflection = new \ReflectionClass('Apruve\Client');
-    $clientInstance = $reflection->getProperty('instance');
-    $clientInstance->setAccessible(true);
-    $clientInstance->setValue(NULL);
+    Apruve\ClientStorage::$apiKey = null;
+    Apruve\ClientStorage::$baseUrl = null;
   }
 
   protected function tearDown() 
@@ -19,18 +17,77 @@ class ApruveClientTest extends PHPUnit_Framework_TestCase {
     
   }
 
+  public function getMockClient($httpStub)
+  {
+    $mock = $this->getMockBuilder('Apruve\Client')
+      ->setMethods(['initCurl'])
+      ->setConstructorArgs([static::$AN_API_KEY, Apruve\Environment::DEV])
+      ->getMock();
+    $mock->expects($this->atLeastOnce())
+      ->method('initCurl')
+      ->will($this->returnValue($httpStub));
+    return $mock;
+  }
+
+  public function testPost()
+  {
+    $httpStub = $this->getMockBuilder('Apruve\CurlRequest')
+      ->setMethods(['execute', 'setOption'])
+      ->setConstructorArgs(['http://localhost:3000/api/v3/blah'])
+      ->getMock();
+    $httpStub->expects($this->atLeastOnce())
+      ->method('setOption')
+      ->withConsecutive(
+        [$this->equalTo(CURLOPT_HTTPHEADER), $this->anything()],
+        [$this->equalTo(CURLOPT_POST), $this->equalTo(true)],
+        [$this->equalTo(CURLOPT_POSTFIELDS), $this->anything()],
+        [$this->equalTo(CURLOPT_RETURNTRANSFER), $this->equalTo(true)]
+      );
+
+    $client = $this->getMockClient($httpStub);
+
+    $response = $client->post('/blah', '{"payload": "blah"}');
+
+    $this->assertEquals(3, count($response));
+  }
+
+  public function test()
+  {
+    $httpStub = $this->getMockBuilder('Apruve\CurlRequest')
+      ->setMethods(['execute', 'setOption'])
+      ->setConstructorArgs(['http://localhost:3000/api/v3/blah'])
+      ->getMock();
+    $httpStub->expects($this->atLeastOnce())
+      ->method('setOption')
+      ->withConsecutive(
+        [$this->equalTo(CURLOPT_HTTPHEADER), $this->anything()],
+        [$this->equalTo(CURLOPT_POST), $this->equalTo(true)],
+        [$this->equalTo(CURLOPT_POSTFIELDS), $this->anything()],
+        [$this->equalTo(CURLOPT_RETURNTRANSFER), $this->equalTo(true)]
+      );
+
+    $client = $this->getMockClient($httpStub);
+
+    $response = $client->post('/blah', '{"payload": "blah"}');
+
+    $this->assertEquals(3, count($response));
+  }
+
+  public function initClient()
+  {
+    return Apruve\Client::init(self::$AN_API_KEY, Apruve\Environment::DEV);
+  }
+
   public function testCreateAClient() 
   {
-    $client = Apruve\Client::init(self::$AN_API_KEY, Apruve\Environment::DEV);
-    $this->assertEquals(self::$AN_API_KEY, Apruve\Client::getInstance()->getApiKey());
+    $client = $this->initClient();
+    $this->assertEquals(self::$AN_API_KEY, $client->getApiKey());
   }
   
   public function testGetUninstantiatedClient()
   {
     $this->setExpectedException('InvalidArgumentException');
-    $client = Apruve\Client::getInstance();
-    $this->assertEquals(null, $client);
-
+    $client = new Apruve\Client();
   }
 
   public function testIncorrectEnvironment() 
@@ -41,9 +98,8 @@ class ApruveClientTest extends PHPUnit_Framework_TestCase {
   
   public function testBaseUrlSet()
   {
-    $client = Apruve\Client::init(self::$AN_API_KEY, Apruve\Environment::DEV);
+    $client = $this->initClient();
     $this->assertEquals(Apruve\Environment::DEV, $client->getBaseUrl());
-
   }
 
 }
