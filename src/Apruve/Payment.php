@@ -51,7 +51,7 @@ class Payment extends ApruveObject
     $response = $this->client->post(
       sprintf(
         self::$PAYMENTS_PATH, $this->payment_request_id), $this->toJson());
-    if ($response[0] == 200)
+    if ($response[0] == 201)
     {
       return new self($response[1], $this->client);
     }

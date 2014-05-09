@@ -86,7 +86,7 @@ class PaymentTest extends PHPUnit_Framework_TestCase
       ->with($this->equalTo('/payment_requests/asdf1234/payments/'),
         $this->anything())
       ->will($this->returnValue([
-        200,
+        201,
         [
           'id' => 'asdf1234',
           'payment_request_id' => 'asdf1234',
