@@ -6,6 +6,8 @@ require_once 'ApruveObject.php';
 
 class PaymentRequest extends ApruveObject
 {
+  protected static $PAYMENT_REQUESTS_PATH = '/payment_requests/';
+  private static $FINALIZE_PATH = '/payment_requests/%s/finalize';
 
   var $id;
   var $merchant_id;
@@ -54,7 +56,7 @@ class PaymentRequest extends ApruveObject
 
   public function toSecureHash() 
   {
-    $apiKey = (new Client())->getApiKey();
+    $apiKey = $this->client->getApiKey();
     return hash("sha256", $apiKey.$this->toSecureString());
   }
 
@@ -69,4 +71,24 @@ class PaymentRequest extends ApruveObject
       return false;
     }
   }
+
+  public function get($payment_request_id, $client=null)
+  {
+    if ($client == null)
+    {
+      $client = new Client();
+    }
+    $response = $client->get(self::$PAYMENT_REQUESTS_PATH.$payment_request_id);
+
+    if ($response[0] == 200)
+    {
+      $object = new self($response[1], $client);
+      return $object;
+    }
+    else
+    {
+      return $response[2];
+    }
+  }
+
 }

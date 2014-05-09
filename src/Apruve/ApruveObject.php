@@ -2,10 +2,20 @@
 
 namespace Apruve;
 
-class ApruveObject {
- 
-  public function __construct($values=[]) 
+abstract class ApruveObject {
+
+  protected $client;
+  
+  public function __construct($values=[], $client=null) 
   {
+    if ($client == null)
+    {
+      $this->client = new Client();
+    }
+    else
+    {
+      $this->client = $client;
+    }
     foreach ($values as $name => $value)
     {
       $this->$name = $value;

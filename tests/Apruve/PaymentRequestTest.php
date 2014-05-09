@@ -12,6 +12,7 @@ class PaymentRequestTest extends PHPUnit_Framework_TestCase
 
   protected function setUp()
   {
+    Apruve\Client::init('a key', Apruve\Environment::DEV);
     $this->pr = new PaymentRequest([
       'id' => 'id',
       'merchant_id' => 'asdf1234',
@@ -122,14 +123,39 @@ class PaymentRequestTest extends PHPUnit_Framework_TestCase
     
   }
 
-  public function addLineItemOnlyAllowsLineItems()
+  public function testAddLineItemOnlyAllowsLineItems()
   {
-    $this->setExpectedException('InvalidArgumentException');
-    $this->assertEquals(false,$this->pr->addLineItem(
-      ['title' => 'a title','amount_cents' => 423,]));
+    $this->assertEquals(false,$this->pr->addLineItem(new PaymentRequest));
   }
 
 
+  public function testGet()
+  {
+    $client = $this->getMockBuilder('Apruve\Client')
+      ->setMethods(['get'])
+      ->getMock();
+    $client->expects($this->Once())
+      ->method('get')
+      ->with($this->equalTo('/payment_requests/asdf1234'))
+      ->will($this->returnValue([
+        200,
+        [
+          'id' => 'asdf1234',
+          'merchant_id' => 'asdf1234',
+          'merchant_order_id' => 'order1234',
+          'amount_cents' => 6000,
+          'tax_cents' => 500,
+          'shipping_cents' => 1000,
+          'currency' => 'USD',
+        ],
+        ''])
+      );
+
+    $pr = PaymentRequest::get('asdf1234', $client);
+
+    $this->assertEquals('asdf1234', $pr->id);
+    $this->assertEquals('Apruve\PaymentRequest', get_class($pr));
+  }
       
 
 }

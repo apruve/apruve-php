@@ -101,7 +101,27 @@ class Client
     return $ret;
   }
 
+  public function get($path)
+  {
+    $client = $this->restRequest($path);
+    $client->setOption(CURLOPT_RETURNTRANSFER, true);
+    $response = $client->execute();
+    $ret = [$client->getInfo(CURLINFO_HTTP_CODE), json_decode($response), $client->error()];
+    $client->close();
+    return $ret;
+  }
+
+  public function put($path, $payload)
+  {
+    $client = $this->restRequest($path);
+    $client->setOption(CURLOPT_CUSTOMREQUEST, 'PUT');
+    $client->setOption(CURLOPT_POSTFIELDS, $payload);
+    $client->setOption(CURLOPT_RETURNTRANSFER, true);
+    $response = $client->execute();
+    $ret = [$client->getInfo(CURLINFO_HTTP_CODE), json_decode($response), $client->error()];
+    $client->close();
+    return $ret;
+  }
+
 
 }
-
-

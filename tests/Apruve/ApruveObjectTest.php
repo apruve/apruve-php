@@ -20,12 +20,18 @@ class TestClass extends ApruveObject
     'second',
     'first'
   ];
+
+  public function getClient()
+  {
+    return $this->client;
+  }
 }
 
 class ApruveObjectTest extends PHPUnit_Framework_TestCase
 {
 
   protected function setUp() {
+    $this->client = Apruve\Client::init('a key', Apruve\Environment::DEV);
     $this->object = new TestClass([
       'third' => 3,
       'first' => 1,
@@ -57,5 +63,11 @@ class ApruveObjectTest extends PHPUnit_Framework_TestCase
       '{"first": 1, "second": "second" }',
       $this->object->toJson()
     );
+  }
+
+  public function testClientInjection()
+  {
+    $this->client = Apruve\Client::init('a key', Apruve\Environment::DEV);
+    $this->assertEquals($this->client->getApiKey(), $this->object->getClient()->getApiKey());
   }
 }

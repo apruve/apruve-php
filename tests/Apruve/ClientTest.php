@@ -51,7 +51,7 @@ class ApruveClientTest extends PHPUnit_Framework_TestCase {
     $this->assertEquals(3, count($response));
   }
 
-  public function test()
+  public function testPut()
   {
     $httpStub = $this->getMockBuilder('Apruve\CurlRequest')
       ->setMethods(['execute', 'setOption'])
@@ -61,14 +61,34 @@ class ApruveClientTest extends PHPUnit_Framework_TestCase {
       ->method('setOption')
       ->withConsecutive(
         [$this->equalTo(CURLOPT_HTTPHEADER), $this->anything()],
-        [$this->equalTo(CURLOPT_POST), $this->equalTo(true)],
+        [$this->equalTo(CURLOPT_CUSTOMREQUEST), $this->equalTo('PUT')],
         [$this->equalTo(CURLOPT_POSTFIELDS), $this->anything()],
         [$this->equalTo(CURLOPT_RETURNTRANSFER), $this->equalTo(true)]
       );
 
     $client = $this->getMockClient($httpStub);
 
-    $response = $client->post('/blah', '{"payload": "blah"}');
+    $response = $client->put('/blah', '{"payload": "blah"}');
+
+    $this->assertEquals(3, count($response));
+  }
+
+  public function testGet()
+  {
+    $httpStub = $this->getMockBuilder('Apruve\CurlRequest')
+      ->setMethods(['execute', 'setOption'])
+      ->setConstructorArgs(['http://localhost:3000/api/v3/blah'])
+      ->getMock();
+    $httpStub->expects($this->atLeastOnce())
+      ->method('setOption')
+      ->withConsecutive(
+        [$this->equalTo(CURLOPT_HTTPHEADER), $this->anything()],
+        [$this->equalTo(CURLOPT_RETURNTRANSFER), $this->equalTo(true)]
+      );
+
+    $client = $this->getMockClient($httpStub);
+
+    $response = $client->get('/blah');
 
     $this->assertEquals(3, count($response));
   }
