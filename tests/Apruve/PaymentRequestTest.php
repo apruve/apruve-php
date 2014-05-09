@@ -22,10 +22,10 @@ class PaymentRequestTest extends PHPUnit_Framework_TestCase
       'shipping_cents' => 1000,
       'currency' => 'USD',
       'line_items' => [
-        new LineItem([
+        [
           'title' => 'a title',
           'amount_cents' => 4500,
-        ])
+        ]
       ],
     ]);
   }

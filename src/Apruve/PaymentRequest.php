@@ -43,6 +43,22 @@ class PaymentRequest extends ApruveObject
     'line_items',
   ];
 
+  public function __construct($payment_request=[], $client=null)
+  {
+    if (array_key_exists('line_items', $payment_request))
+    {
+      foreach($payment_request['line_items'] as $key => $line_item)
+      {
+        if (is_array($line_item))
+        {
+          $payment_request['line_items'][$key] = new LineItem($line_item);
+        }
+      }
+    }
+
+    parent::__construct($payment_request, $client);
+  }
+
   public function setShippingCents($shipping_cents)
   {
     $this->shipping_cents = $shipping_cents;
