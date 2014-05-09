@@ -156,6 +156,43 @@ class PaymentRequestTest extends PHPUnit_Framework_TestCase
     $this->assertEquals('asdf1234', $pr->id);
     $this->assertEquals('Apruve\PaymentRequest', get_class($pr));
   }
+
+  public function testUpdate()
+  {
+    $client = $this->getMockBuilder('Apruve\Client')
+      ->setMethods(['put'])
+      ->getMock();
+    $client->expects($this->Once())
+      ->method('put')
+      ->with($this->equalTo('/payment_requests/asdf1234'))
+      ->will($this->returnValue([
+        200,
+        [
+          'id' => 'asdf1234',
+          'merchant_id' => 'asdf1234',
+          'merchant_order_id' => 'order1234',
+          'amount_cents' => 6000,
+          'tax_cents' => 500,
+          'shipping_cents' => 1000,
+          'currency' => 'USD',
+        ],
+        ''])
+      );
+
+    $pr = new PaymentRequest([
+          'id' => 'asdf1234',
+          'merchant_id' => 'asdf1234',
+          'merchant_order_id' => 'order1234',
+          'amount_cents' => 6000,
+          'currency' => 'USD'], $client);
+    $pr->setShippingCents(500);
+    $pr->setTaxCents(439);
+    $pr->setAmountCents(6199);
+
+    $pr = $pr->update();
+
+    $this->assertEquals(true, $pr);
+  }
       
 
 }

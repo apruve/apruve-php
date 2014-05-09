@@ -43,6 +43,21 @@ class PaymentRequest extends ApruveObject
     'line_items',
   ];
 
+  public function setShippingCents($shipping_cents)
+  {
+    $this->shipping_cents = $shipping_cents;
+  }
+
+  public function setTaxCents($tax_cents)
+  {
+    $this->tax_cents = $tax_cents;
+  }
+
+  public function setAmountCents($amount_cents)
+  {
+    $this->amount_cents = $amount_cents;
+  }
+
   public function toSecureString()
   {
     $hashString = $this->toHashString();
@@ -72,7 +87,7 @@ class PaymentRequest extends ApruveObject
     }
   }
 
-  public function get($payment_request_id, $client=null)
+  public static function get($payment_request_id, $client=null)
   {
     if ($client == null)
     {
@@ -90,5 +105,14 @@ class PaymentRequest extends ApruveObject
       return $response[2];
     }
   }
+
+  public function update()
+  {
+    $response = $this->client->put(self::$PAYMENT_REQUESTS_PATH.$this->id,
+      $this->toJson());
+    return $response[0] == 200;
+  }
+
+  
 
 }
