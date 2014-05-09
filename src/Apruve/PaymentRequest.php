@@ -74,6 +74,11 @@ class PaymentRequest extends ApruveObject
     $this->amount_cents = $amount_cents;
   }
 
+  public function setMerchantOrderId($merchant_order_id)
+  {
+    $this->merchant_order_id = $merchant_order_id;
+  }
+
   public function toSecureString()
   {
     $hashString = $this->toHashString();
