@@ -19,7 +19,10 @@ class LineItemTest extends PHPUnit_Framework_TestCase {
       'variant_info' => 'some variation.',
       'vendor' => 'ACME',
       'view_product_url' => 'A Url.', 
-    ]);
+    ], $this->getMockBuilder('Apruve\Client')
+          ->setConstructorArgs(['a key', Apruve\Environment::DEV()])
+          ->getMock()
+  );
   }
 
   protected function tearDown() {

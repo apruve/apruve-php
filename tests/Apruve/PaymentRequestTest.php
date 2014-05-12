@@ -12,7 +12,7 @@ class PaymentRequestTest extends PHPUnit_Framework_TestCase
 
   protected function setUp()
   {
-    Apruve\Client::init('a key', Apruve\Environment::DEV);
+    Apruve\Client::init('a key', Apruve\Environment::DEV());
     $this->pr = new PaymentRequest([
       'id' => 'id',
       'merchant_id' => 'asdf1234',
@@ -103,7 +103,7 @@ class PaymentRequestTest extends PHPUnit_Framework_TestCase
 
   public function testToSecureHash()
   {
-    Apruve\Client::init('a key', Apruve\Environment::DEV);
+    Apruve\Client::init('a key', Apruve\Environment::DEV());
     $this->assertEquals(
       hash('sha256', 'a keyasdf12346000USD5001000a title4500'),
       $this->pr->toSecureHash()

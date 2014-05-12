@@ -10,7 +10,7 @@ class PaymentTest extends PHPUnit_Framework_TestCase
 
   protected function setUp()
   {
-    Apruve\Client::init('a key', Apruve\Environment::DEV);
+    Apruve\Client::init('a key', Apruve\Environment::DEV());
     $this->payment = new Payment([
       "amount_cents" => 6000,
       "currency" => "USD",

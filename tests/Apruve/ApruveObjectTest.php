@@ -31,7 +31,7 @@ class ApruveObjectTest extends PHPUnit_Framework_TestCase
 {
 
   protected function setUp() {
-    $this->client = Apruve\Client::init('a key', Apruve\Environment::DEV);
+    $this->client = Apruve\Client::init('a key', Apruve\Environment::DEV());
     $this->object = new TestClass([
       'third' => 3,
       'first' => 1,
@@ -67,7 +67,7 @@ class ApruveObjectTest extends PHPUnit_Framework_TestCase
 
   public function testClientInjection()
   {
-    $this->client = Apruve\Client::init('a key', Apruve\Environment::DEV);
+    $this->client = Apruve\Client::init('a key', Apruve\Environment::DEV());
     $this->assertEquals($this->client->getApiKey(), $this->object->getClient()->getApiKey());
   }
 }

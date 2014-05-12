@@ -9,7 +9,7 @@ class ApruveClientTest extends PHPUnit_Framework_TestCase {
   protected function setUp() 
   {
     Apruve\ClientStorage::$apiKey = null;
-    Apruve\ClientStorage::$baseUrl = null;
+    Apruve\ClientStorage::$env = null;
   }
 
   protected function tearDown() 
@@ -17,11 +17,18 @@ class ApruveClientTest extends PHPUnit_Framework_TestCase {
     
   }
 
+  public function testGetEnvironment()
+  {
+    $env = Apruve\Environment::DEV();
+    $client = Apruve\Client::init('a key', $env);
+    $this->assertEquals($env, $client->getEnvironment());
+  }
+
   public function getMockClient($httpStub)
   {
     $mock = $this->getMockBuilder('Apruve\Client')
       ->setMethods(['initCurl'])
-      ->setConstructorArgs([static::$AN_API_KEY, Apruve\Environment::DEV])
+      ->setConstructorArgs([static::$AN_API_KEY, Apruve\Environment::DEV()])
       ->getMock();
     $mock->expects($this->atLeastOnce())
       ->method('initCurl')
@@ -95,7 +102,7 @@ class ApruveClientTest extends PHPUnit_Framework_TestCase {
 
   public function initClient()
   {
-    return Apruve\Client::init(self::$AN_API_KEY, Apruve\Environment::DEV);
+    return Apruve\Client::init(self::$AN_API_KEY, Apruve\Environment::DEV());
   }
 
   public function testCreateAClient() 
@@ -110,16 +117,10 @@ class ApruveClientTest extends PHPUnit_Framework_TestCase {
     $client = new Apruve\Client();
   }
 
-  public function testIncorrectEnvironment() 
-  {
-    $this->setExpectedException('InvalidArgumentException');
-    $client = Apruve\Client::init(self::$AN_API_KEY, 'Some STring');
-  }
-  
   public function testBaseUrlSet()
   {
     $client = $this->initClient();
-    $this->assertEquals(Apruve\Environment::DEV, $client->getBaseUrl());
+    $this->assertEquals(Apruve\Environment::DEV, $client->getEnvironment()->getBaseUrl());
   }
 
 }

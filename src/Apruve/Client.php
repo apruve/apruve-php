@@ -7,11 +7,11 @@ require_once 'CurlRequest.php';
 class ClientStorage 
 {
   public static $apiKey;
-  public static $baseUrl;
+  public static $env;
 
-  public static function setBaseUrl($baseUrl)
+  public static function setEnvironment(Environment $env)
   {
-    static::$baseUrl = $baseUrl;
+    static::$env = $env;
   }
 
   public static function setApiKey($apiKey)
@@ -23,38 +23,37 @@ class ClientStorage
 class Client 
 {
   private $apiKey;
-  private $baseUrl;
-  const apiPath = '/api/v3';
+  private $env;
 
-  public function __construct($apiKey='', $baseUrl='')
+  public function __construct($apiKey='', Environment $env=null)
   {
-    if(empty($apiKey) or empty($baseUrl)) 
+    if(empty($apiKey) or empty($env)) 
     {
-      if (empty(ClientStorage::$apiKey) or empty(ClientStorage::$baseUrl))
+      if (empty(ClientStorage::$apiKey) or empty(ClientStorage::$env))
       {
         throw new \InvalidArgumentException('Client must be initialized with init() first!');
       }
       else
       {
         $apiKey = ClientStorage::$apiKey;
-        $baseUrl = ClientStorage::$baseUrl;
+        $env = ClientStorage::$env;
       }
     }
     $this->apiKey = $apiKey;
-    $this->baseUrl = $baseUrl;
+    $this->env = $env;
   }
 
-  static function init($ApiKey, $baseUrl) 
+  static function init($ApiKey, Environment $env) 
   {
-    if ($baseUrl != Environment::PROD and
-        $baseUrl != Environment::TEST and
-        $baseUrl != Environment::DEV)
+    if ($env->getBaseUrl() != Environment::PROD and
+        $env->getBaseUrl() != Environment::TEST and
+        $env->getBaseUrl() != Environment::DEV)
     {
       throw new \InvalidArgumentException
         ('$env must be Apruve\Environment::PROD or Apruve\Environment::TEST to be valid.');
 
     }
-    ClientStorage::setBaseUrl($baseUrl);
+    ClientStorage::setEnvironment($env);
     ClientStorage::setApiKey($ApiKey);
     return new Client();
   }
@@ -69,9 +68,9 @@ class Client
     $this->ApiKey = $ApiKey;
   }
 
-  function getBaseUrl() 
+  function getEnvironment() 
   {
-    return $this->baseUrl;
+    return $this->env;
   }
 
   protected function initCurl($url)
@@ -81,7 +80,7 @@ class Client
 
   protected function restRequest($path)
   {
-    $client = $this->initCurl($this->baseUrl.Client::apiPath.$path);
+    $client = $this->initCurl($this->env->getApiUrl().$path);
     $client->setOption(CURLOPT_HTTPHEADER, [
       'Content-Type: application/json',
       "Apruve-Api-Key: $this->apiKey",
