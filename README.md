@@ -1,4 +1,4 @@
-# Apruve-PHP - Apruve
+# apruve/apruve-php
 
 Inovation in the world of B2B Payments.  Apruve-PHP is a library to help integrate apruve.js into your website.
 
@@ -13,7 +13,7 @@ Please use [Github issues](https://github.com/apruve/apruve-php/issues) to reque
 Add this require to your `composer.json`:
 
     "require": {
-      "apruve-php": "~0.1"
+      "apruve/apruve-php": "~0.2"
     }
 
 **NOTE**: Be sure to update the version as you update the version of apruve-php
