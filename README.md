@@ -12,15 +12,19 @@ Please use [Github issues](https://github.com/apruve/apruve-php/issues) to reque
 
 Add this require to your `composer.json`:
 
-  "require": {
-    "apruve-php": "0.1"
-  }
+    "require": {
+      "apruve-php": "~0.1"
+    }
 
 **NOTE**: Be sure to update the version as you update the version of apruve-php
 
+Then run `composer install`:
+
+    $ composer install
+
 ## Testing
 
-    $ phpunit tests/
+    $ vendor/bin/phpunit tests/
 
 If you'd like to contribute, use the watchr ruby gem to assist.
 
