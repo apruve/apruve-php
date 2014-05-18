@@ -1,6 +1,6 @@
 # apruve/apruve-php
 
-Inovation in the world of B2B Payments.  Apruve-PHP is a library to help integrate apruve.js into your website.
+Innovation in the world of B2B Payments.  Apruve-PHP is a library to help integrate apruve.js into your website.
 
 ## Issues
 
