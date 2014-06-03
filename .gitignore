@@ -3,3 +3,6 @@
 *.swp
 
 /vendor/
+
+# Idea files
+.idea
