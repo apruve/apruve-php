@@ -26,6 +26,7 @@ class PaymentRequest extends ApruveObject
 
   protected static $hash_order = [
     'merchant_id',
+    'merchant_order_id',
     'amount_cents',
     'currency',
     'tax_cents',
@@ -37,9 +38,9 @@ class PaymentRequest extends ApruveObject
     'merchant_id',
     'merchant_order_id',
     'amount_cents',
+    'currency',
     'tax_cents',
     'shipping_cents',
-    'currency',
     'line_items',
   ];
 

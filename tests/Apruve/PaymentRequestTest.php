@@ -54,14 +54,6 @@ class PaymentRequestTest extends PHPUnit_Framework_TestCase
     
   }
 
-  public function testToHashString()
-  {
-    $this->assertEquals(
-      'asdf12346000USD5001000',
-      $this->pr->toHashString()
-    );
-  }
-
   public function testToJson()
   {
     $this->assertJsonStringEqualsJsonString(
@@ -93,10 +85,18 @@ class PaymentRequestTest extends PHPUnit_Framework_TestCase
      );
   }
 
+  public function testToHashString()
+  {
+    $this->assertEquals(
+      'asdf1234order12346000USD5001000',
+      $this->pr->toHashString()
+    );
+  }
+
   public function testToSecureString() 
   {
     $this->assertEquals(
-      'asdf12346000USD5001000a title4500',
+      'asdf1234order12346000USD5001000a title4500',
       $this->pr->toSecureString()
     );
   }
@@ -105,7 +105,7 @@ class PaymentRequestTest extends PHPUnit_Framework_TestCase
   {
     Apruve\Client::init('a key', Apruve\Environment::DEV());
     $this->assertEquals(
-      hash('sha256', 'a keyasdf12346000USD5001000a title4500'),
+      hash('sha256', 'a keyasdf1234order12346000USD5001000a title4500'),
       $this->pr->toSecureHash()
     );
   }
