@@ -7,7 +7,6 @@ require_once 'ApruveObject.php';
 class PaymentItem extends ApruveObject {
 
   var $title;
-  var $plan_code;
   var $amount_cents;
   var $quantity;
   var $price_ea_cents;
