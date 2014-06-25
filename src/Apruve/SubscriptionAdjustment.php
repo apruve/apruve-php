@@ -24,7 +24,6 @@ class SubscriptionAdjustment extends ApruveObject
   var $view_product_url;
 
   protected static $json_fields = [
-    'id',
     'title',
     'amount_cents',
     'quantity',
@@ -44,7 +43,6 @@ class SubscriptionAdjustment extends ApruveObject
       $client = new Client();
     }
     $response = $client->get(sprintf(self::$SUBSCRIPTION_ADJUSTMENT_PATH, $subscription_id).$subscription_adjustment_id);
-
     if ($response[0] == 200)
     {
       return new self($response[1], $client);
@@ -70,4 +68,21 @@ class SubscriptionAdjustment extends ApruveObject
     }
   }
 
+  public static function delete($subscription_id, $subscription_adjustment_id, $client=null)
+  {
+    if ($client == null)
+    {
+      $client = new Client();
+    }
+    $response = $client->delete(sprintf(self::$SUBSCRIPTION_ADJUSTMENT_PATH, $subscription_id).$subscription_adjustment_id);
+    echo "RESPONSE CODE : ".$response[0];
+    if ($response[0] == 200)
+    {
+      return new self($response[1], $client);
+    }
+    else
+    {
+      return $response[2];
+    }
+  }
 }
