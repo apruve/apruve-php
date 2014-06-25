@@ -24,7 +24,7 @@ class SubscriptionAdjustment extends ApruveObject
   var $view_product_url;
 
   protected static $json_fields = [
-    'subscription_id',
+    'id',
     'title',
     'amount_cents',
     'quantity',
