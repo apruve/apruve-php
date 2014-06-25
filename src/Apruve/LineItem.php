@@ -6,6 +6,8 @@ require_once 'ApruveObject.php';
 
 class LineItem extends ApruveObject {
 
+  var $id;
+  var $payment_request_id;
   var $title;
   var $plan_code;
   var $amount_cents;
@@ -33,6 +35,7 @@ class LineItem extends ApruveObject {
   ];
 
   protected static $json_fields = [
+    'payment_request_id',
     'title',
     'plan_code',
     'amount_cents',
