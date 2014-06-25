@@ -60,7 +60,7 @@ class SubscriptionAdjustment extends ApruveObject
     $response = $this->client->post(
       sprintf(
         self::$SUBSCRIPTION_ADJUSTMENT_PATH, $this->subscription_id), $this->toJson());
-    if ($response[0] == 201)
+    if ($response[0] == 201 || $response[0] == 200) // TODO: Return this to checking for 201 only if/when things on the apruve end are changed to return 201
     {
       return new self($response[1], $this->client);
     }
