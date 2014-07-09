@@ -25,6 +25,7 @@ class PaymentRequestTest extends PHPUnit_Framework_TestCase
         [
           'title' => 'a title',
           'amount_cents' => 4500,
+          'payment_request_id' => 'id',
         ]
       ],
     ]);
@@ -67,6 +68,7 @@ class PaymentRequestTest extends PHPUnit_Framework_TestCase
         "currency": "USD",
         "line_items": [
           {
+            "payment_request_id": "id",
             "title": "a title",
             "amount_cents": 4500,
             "plan_code": null,
