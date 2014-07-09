@@ -75,7 +75,6 @@ class SubscriptionAdjustment extends ApruveObject
       $client = new Client();
     }
     $response = $client->delete(sprintf(self::$SUBSCRIPTION_ADJUSTMENT_PATH, $subscription_id).$subscription_adjustment_id);
-    echo "RESPONSE CODE : ".$response[0];
     if ($response[0] == 200)
     {
       return new self($response[1], $client);

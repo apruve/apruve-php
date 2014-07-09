@@ -116,7 +116,32 @@ class SubscriptionAdjustmentTest extends PHPUnit_Framework_TestCase
 
     $this->assertEquals('asdf1234', $sr->id);
     $this->assertEquals('Apruve\SubscriptionAdjustment', get_class($sr));
+  }
 
+  public function testDelete()
+  {
+    $client = $this->getMockBuilder('Apruve\Client')
+      ->setMethods(['delete'])
+      ->getMock();
+    $client->expects($this->Once())
+      ->method('delete')
+      ->with($this->equalTo('/subscriptions/asdf1234/adjustments/asdf1234'))
+      ->will($this->returnValue([
+          200,
+          [
+            'id' => 'asdf1234',
+            'subscription_id' => 'asdf1234',
+            'api_url' => 'www.foo.com'
+          ],
+          ''])
+      );
+
+    $sr = SubscriptionAdjustment::delete('asdf1234', 'asdf1234', $client);
+    $this->assertEquals('asdf1234', $sr->id);
+    $this->assertEquals('asdf1234', $sr->subscription_id);
+    $this->assertEquals('www.foo.com', $sr->api_url);
+
+    $this->assertEquals('Apruve\SubscriptionAdjustment', get_class($sr));
   }
       
 

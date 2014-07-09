@@ -64,7 +64,5 @@ class PaymentItemTest extends PHPUnit_Framework_TestCase {
        }', $this->item->toJson()
     );
   }
-
-
 }
 
