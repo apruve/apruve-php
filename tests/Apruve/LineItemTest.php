@@ -18,7 +18,8 @@ class LineItemTest extends PHPUnit_Framework_TestCase {
       'description' => 'a description.',
       'variant_info' => 'some variation.',
       'vendor' => 'ACME',
-      'view_product_url' => 'A Url.', 
+      'view_product_url' => 'A Url.',
+      'payment_request_id' => '1234',
     ], $this->getMockBuilder('Apruve\Client')
           ->setConstructorArgs(['a key', Apruve\Environment::DEV()])
           ->getMock()
@@ -34,6 +35,8 @@ class LineItemTest extends PHPUnit_Framework_TestCase {
     $item_vars = get_class_vars(get_class($this->item));
 
     $this->assertEquals(array_keys($item_vars),array(
+      'id',
+      'payment_request_id',
       'title',
       'plan_code',
       'amount_cents',
@@ -46,7 +49,7 @@ class LineItemTest extends PHPUnit_Framework_TestCase {
       'vendor',
       'view_product_url',
     ));
-    $this->assertEquals(11, count($item_vars));
+    $this->assertEquals(13, count($item_vars));
   }
 
   public function testToHashString() 
@@ -61,6 +64,7 @@ class LineItemTest extends PHPUnit_Framework_TestCase {
   {
     $this->assertJsonStringEqualsJsonString(
       '{
+          "payment_request_id":"1234",
           "title": "A title",
           "plan_code": "plan",
           "amount_cents": 3400,
