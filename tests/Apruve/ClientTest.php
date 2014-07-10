@@ -100,6 +100,27 @@ class ApruveClientTest extends PHPUnit_Framework_TestCase {
     $this->assertEquals(3, count($response));
   }
 
+  public function testDelete()
+  {
+    $httpStub = $this->getMockBuilder('Apruve\CurlRequest')
+      ->setMethods(['execute', 'setOption'])
+      ->setConstructorArgs(['http://localhost:3000/api/v3/blah'])
+      ->getMock();
+    $httpStub->expects($this->atLeastOnce())
+      ->method('setOption')
+      ->withConsecutive(
+        [$this->equalTo(CURLOPT_HTTPHEADER), $this->anything()],
+        [$this->equalTo(CURLOPT_CUSTOMREQUEST), $this->equalTo('DELETE')],
+        [$this->equalTo(CURLOPT_RETURNTRANSFER), $this->equalTo(true)]
+      );
+
+    $client = $this->getMockClient($httpStub);
+
+    $response = $client->delete('/blah');
+
+    $this->assertEquals(3, count($response));
+  }
+
   public function initClient()
   {
     return Apruve\Client::init(self::$AN_API_KEY, Apruve\Environment::DEV());

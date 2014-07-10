@@ -2,4 +2,6 @@
 *~
 *.swp
 
-/vendor/
+vendor/
+composer.phar
+.idea/
