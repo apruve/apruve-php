@@ -13,7 +13,7 @@ Please use [Github issues](https://github.com/apruve/apruve-php/issues) to reque
 Add this require to your `composer.json`:
 
     "require": {
-      "apruve/apruve-php": "~0.2"
+      "apruve/apruve-php": "~1.0"
     }
 
 **NOTE**: Be sure to update the version as you update the version of apruve-php
