@@ -18,6 +18,7 @@ class PaymentRequest extends ApruveObject
   var $tax_cents;
   var $shipping_cents;
   var $currency;
+  var $expire_at;
   var $line_items = [];
   var $api_url;
   var $view_url;
@@ -30,6 +31,7 @@ class PaymentRequest extends ApruveObject
     'currency',
     'tax_cents',
     'shipping_cents',
+    'expire_at',
   ];
 
   protected static $json_fields = [
@@ -40,6 +42,7 @@ class PaymentRequest extends ApruveObject
     'tax_cents',
     'shipping_cents',
     'currency',
+    'expire_at',
     'line_items',
   ];
 
@@ -77,6 +80,11 @@ class PaymentRequest extends ApruveObject
   public function setMerchantOrderId($merchant_order_id)
   {
     $this->merchant_order_id = $merchant_order_id;
+  }
+
+  public function setExpireAt($expire_at)
+  {
+    $this->expire_at = $expire_at;
   }
 
   public function toSecureString()

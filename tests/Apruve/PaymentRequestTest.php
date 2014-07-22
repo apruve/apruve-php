@@ -21,6 +21,7 @@ class PaymentRequestTest extends PHPUnit_Framework_TestCase
       'tax_cents' => 500,
       'shipping_cents' => 1000,
       'currency' => 'USD',
+      'expire_at' => '2014-07-15T10:12:27-05:00',
       'line_items' => [
         [
           'title' => 'a title',
@@ -44,20 +45,21 @@ class PaymentRequestTest extends PHPUnit_Framework_TestCase
       'tax_cents',
       'shipping_cents',
       'currency',
+      'expire_at',
       'line_items',
       'api_url',
       'view_url',
       'created_at',
       'updated_at',
     ]);
-    $this->assertEquals(14, count($vars));
+    $this->assertEquals(15, count($vars));
     
   }
 
   public function testToHashString()
   {
     $this->assertEquals(
-      'asdf12346000USD5001000',
+      'asdf12346000USD50010002014-07-15T10:12:27-05:00',
       $this->pr->toHashString()
     );
   }
@@ -73,6 +75,7 @@ class PaymentRequestTest extends PHPUnit_Framework_TestCase
         "tax_cents": 500,
         "shipping_cents": 1000,
         "currency": "USD",
+        "expire_at": "2014-07-15T10:12:27-05:00",
         "line_items": [
           {
             "title": "a title",
@@ -96,7 +99,7 @@ class PaymentRequestTest extends PHPUnit_Framework_TestCase
   public function testToSecureString() 
   {
     $this->assertEquals(
-      'asdf12346000USD5001000a title4500',
+      'asdf12346000USD50010002014-07-15T10:12:27-05:00a title4500',
       $this->pr->toSecureString()
     );
   }
@@ -105,7 +108,7 @@ class PaymentRequestTest extends PHPUnit_Framework_TestCase
   {
     Apruve\Client::init('a key', Apruve\Environment::DEV());
     $this->assertEquals(
-      hash('sha256', 'a keyasdf12346000USD5001000a title4500'),
+      hash('sha256', 'a keyasdf12346000USD50010002014-07-15T10:12:27-05:00a title4500'),
       $this->pr->toSecureHash()
     );
   }
