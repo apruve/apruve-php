@@ -26,6 +26,7 @@ class PaymentRequestTest extends PHPUnit_Framework_TestCase
         [
           'title' => 'a title',
           'amount_cents' => 4500,
+          'payment_request_id' => 'id',
         ]
       ],
     ]);
@@ -56,14 +57,6 @@ class PaymentRequestTest extends PHPUnit_Framework_TestCase
     
   }
 
-  public function testToHashString()
-  {
-    $this->assertEquals(
-      'asdf12346000USD50010002014-07-15T10:12:27-05:00',
-      $this->pr->toHashString()
-    );
-  }
-
   public function testToJson()
   {
     $this->assertJsonStringEqualsJsonString(
@@ -78,6 +71,7 @@ class PaymentRequestTest extends PHPUnit_Framework_TestCase
         "expire_at": "2014-07-15T10:12:27-05:00",
         "line_items": [
           {
+            "payment_request_id": "id",
             "title": "a title",
             "amount_cents": 4500,
             "plan_code": null,
@@ -96,10 +90,18 @@ class PaymentRequestTest extends PHPUnit_Framework_TestCase
      );
   }
 
+  public function testToHashString()
+  {
+    $this->assertEquals(
+      'asdf1234order12346000USD50010002014-07-15T10:12:27-05:00',
+      $this->pr->toHashString()
+    );
+  }
+
   public function testToSecureString() 
   {
     $this->assertEquals(
-      'asdf12346000USD50010002014-07-15T10:12:27-05:00a title4500',
+      'asdf1234order12346000USD50010002014-07-15T10:12:27-05:00a title4500',
       $this->pr->toSecureString()
     );
   }
@@ -108,7 +110,7 @@ class PaymentRequestTest extends PHPUnit_Framework_TestCase
   {
     Apruve\Client::init('a key', Apruve\Environment::DEV());
     $this->assertEquals(
-      hash('sha256', 'a keyasdf12346000USD50010002014-07-15T10:12:27-05:00a title4500'),
+      hash('sha256', 'a keyasdf1234order12346000USD50010002014-07-15T10:12:27-05:00a title4500'),
       $this->pr->toSecureHash()
     );
   }

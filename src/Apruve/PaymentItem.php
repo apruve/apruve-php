@@ -4,12 +4,9 @@ namespace Apruve;
 
 require_once 'ApruveObject.php';
 
-class LineItem extends ApruveObject {
+class PaymentItem extends ApruveObject {
 
-  var $id;
-  var $payment_request_id;
   var $title;
-  var $plan_code;
   var $amount_cents;
   var $quantity;
   var $price_ea_cents;
@@ -20,27 +17,11 @@ class LineItem extends ApruveObject {
   var $vendor;
   var $view_product_url;
 
-  protected static $hash_order = [
-    'title',
-    'plan_code',
-    'amount_cents',
-    'price_ea_cents',
-    'quantity',
-    'merchant_notes',
-    'description',
-    'variant_info', 
-    'sku',
-    'vendor', 
-    'view_product_url',
-  ];
-
   protected static $json_fields = [
-    'payment_request_id',
     'title',
-    'plan_code',
     'amount_cents',
-    'price_ea_cents',
     'quantity',
+    'price_ea_cents',
     'merchant_notes',
     'description',
     'variant_info', 

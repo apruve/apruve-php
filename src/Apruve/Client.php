@@ -110,6 +110,17 @@ class Client
     return $ret;
   }
 
+  public function delete($path)
+  {
+    $client = $this->restRequest($path);
+    $client->setOption(CURLOPT_CUSTOMREQUEST, 'DELETE');
+    $client->setOption(CURLOPT_RETURNTRANSFER, true);
+    $response = $client->execute();
+    $ret = [$client->getInfo(CURLINFO_HTTP_CODE), json_decode($response, true), $client->error()];
+    $client->close();
+    return $ret;
+  }
+
   public function put($path, $payload)
   {
     $client = $this->restRequest($path);

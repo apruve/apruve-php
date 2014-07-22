@@ -19,6 +19,7 @@ class Payment extends ApruveObject
   var $view_url;
   var $created_at;
   var $updated_at;
+  var $payment_items = [];
 
   protected static $hash_order = [];
 
@@ -26,7 +27,24 @@ class Payment extends ApruveObject
     'amount_cents',
     'currency',
     'merchant_notes',
+    'payment_items',
   ];
+
+  public function __construct($payment=[], $client=null)
+  {
+    if (array_key_exists('payment_items', $payment))
+    {
+      foreach($payment['payment_items'] as $key => $payment_item)
+      {
+        if (is_array($payment_item))
+        {
+          $payment['payment_items'][$key] = new PaymentItem($payment_item);
+        }
+      }
+    }
+
+    parent::__construct($payment, $client);
+  }
 
   public static function get($payment_request_id, $payment_id, $client=null)
   {

@@ -15,6 +15,14 @@ class PaymentTest extends PHPUnit_Framework_TestCase
       "amount_cents" => 6000,
       "currency" => "USD",
       "merchant_notes" => null,
+      "payment_items" => [
+        [
+          'title' => 'test',
+          'amount_cents' => 100,
+          'quantity' => 1,
+          'price_ea_cents' => 100
+        ]
+      ]
     ]);
 
   }
@@ -34,8 +42,9 @@ class PaymentTest extends PHPUnit_Framework_TestCase
       'view_url',
       'created_at',
       'updated_at',
+      'payment_items',
     ]);
-    $this->assertEquals(10, count($vars));
+    $this->assertEquals(11, count($vars));
     
   }
 
@@ -45,7 +54,21 @@ class PaymentTest extends PHPUnit_Framework_TestCase
       '{
         "amount_cents": 6000,
         "currency": "USD",
-        "merchant_notes": null
+        "merchant_notes": null,
+        "payment_items": [
+          {
+            "title": "test",
+            "amount_cents": 100,
+            "quantity" : 1,
+            "price_ea_cents": 100,
+            "merchant_notes": null,
+            "description": null,
+            "variant_info": null,
+            "sku": null,
+            "vendor": null,
+            "view_product_url": null
+          }
+        ]
        }',
        $this->payment->toJson()
      );

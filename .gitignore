@@ -2,7 +2,6 @@
 *~
 *.swp
 
-/vendor/
-
-# Idea files
-.idea
+vendor/
+composer.phar
+.idea/
