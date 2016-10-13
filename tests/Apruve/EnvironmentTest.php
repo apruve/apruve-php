@@ -11,7 +11,7 @@ class ApruveEnvironmentTest extends PHPUnit_Framework_TestCase
 
   public function testURLs()
   {
-    $this->assertEquals('https://www.apruve.com', Apruve\Environment::PROD);
+    $this->assertEquals('https://app.apruve.com', Apruve\Environment::PROD);
     $this->assertEquals('https://test.apruve.com', Apruve\Environment::TEST);
     $this->assertEquals('http://localhost:3000', Apruve\Environment::DEV);
 
@@ -41,7 +41,7 @@ class ApruveEnvironmentTest extends PHPUnit_Framework_TestCase
   public function testPRODGetBaseUrl()
   {
     $env = Apruve\Environment::PROD();
-    $this->assertEquals('https://www.apruve.com', $env->getBaseUrl());
+    $this->assertEquals('https://app.apruve.com', $env->getBaseUrl());
   }
         
         

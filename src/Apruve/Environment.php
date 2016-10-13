@@ -4,7 +4,7 @@ namespace Apruve;
 
 class Environment 
 {
-  const PROD = 'https://www.apruve.com';
+  const PROD = 'https://app.apruve.com';
   const TEST = 'https://test.apruve.com';
   const DEV = 'http://localhost:3000';
 
