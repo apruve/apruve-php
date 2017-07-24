@@ -1,5 +1,4 @@
 <?php
-
 // Invoice
 namespace Apruve;
 
