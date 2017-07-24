@@ -17,7 +17,7 @@ Please use [Github issues](https://github.com/apruve/apruve-php/issues) to reque
 Add this require to your `composer.json`:
 
     "require": {
-      "apruve/apruve-php": "~1.2"
+      "apruve/apruve-php": "~1.3"
     }
 
 **NOTE**: Be sure to update the version as you update the version of apruve-php
@@ -30,10 +30,10 @@ Then run `composer install`:
 
     $ vendor/bin/phpunit tests/
 
-If you'd like to contribute, use the watchr ruby gem to assist.
+If you'd like to contribute, use the observr ruby gem to assist.
 
-    $ gem install watchr
-    $ watchr ./autotest_watchr.rb
+    $ gem install observr
+    $ watchr ./autotest_observr.rb
 
 
 ## Contributing
