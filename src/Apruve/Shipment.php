@@ -7,7 +7,7 @@ require_once 'ApruveObject.php';
 class Shipment extends ApruveObject
 {
 
-    protected static $SHIPMENTS_PATH = '/invoices/%s/shipments/';
+    protected static $SHIPMENTS_PATH = '/invoices/%s/shipments';
     protected static $hash_order = [
         'amount_cents',
         'invoice_id',
@@ -22,6 +22,7 @@ class Shipment extends ApruveObject
         'tax_cents',
         'shipping_cents',
         'merchant_shipment_id',
+        'shipment_items',
     ];
     protected static $json_fields = [
         'amount_cents',
@@ -38,6 +39,7 @@ class Shipment extends ApruveObject
         'shipping_cents',
         'status',
         'merchant_shipment_id',
+        'shipment_items',
     ];
     var $amount_cents;
     var $invoice_id;
@@ -53,6 +55,7 @@ class Shipment extends ApruveObject
     var $shipping_cents;
     var $status;
     var $merchant_shipment_id;
+    var $shipment_items;
 
     public function __construct($shipment = [], $client = null)
     {
@@ -90,6 +93,15 @@ class Shipment extends ApruveObject
             return new self($response[1], $this->client);
         } else {
             return $response[2];
+        }
+    }
+
+    public function addShipmentItem($shipment_item)
+    {
+        if (get_class($shipment_item) == 'Apruve\ShipmentItem') {
+            return array_push($this->shipment_items, $shipment_item);
+        } else {
+            return false;
         }
     }
 }
