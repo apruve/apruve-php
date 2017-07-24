@@ -4,7 +4,8 @@ namespace Apruve;
 
 require_once 'ApruveObject.php';
 
-class Order extends ApruveObject {
+class Order extends ApruveObject
+{
     protected static $ORDERS_PATH = '/orders/';
     protected static $hash_order = [
         'merchant_id',
@@ -48,25 +49,27 @@ class Order extends ApruveObject {
     var $created_at;
     var $updated_at;
 
-    public function __construct( $order = [], $client = null ) {
-        if ( array_key_exists( 'order_items', $order ) ) {
+    public function __construct($order = [], $client = null)
+    {
+        if (array_key_exists('order_items', $order)) {
             foreach ( $order['order_items'] as $key => $order_item ) {
-                if ( is_array( $order_item ) ) {
-                    $order['order_items'][ $key ] = new OrderItem( $order_item );
+                if (is_array($order_item)) {
+                    $order['order_items'][$key] = new OrderItem($order_item);
                 }
             }
         }
-        parent::__construct( $order, $client );
+        parent::__construct($order, $client);
     }
 
-    public static function get( $order_id, $client = null ) {
-        if ( $client == null ) {
+    public static function get($order_id, $client = null)
+    {
+        if ($client == null) {
             $client = new Client();
         }
-        $response = $client->get( self::$ORDERS_PATH . $order_id );
+        $response = $client->get(self::$ORDERS_PATH.$order_id);
 
-        if ( $response[0] == 200 ) {
-            $object = new self( $response[1], $client );
+        if ($response[0] == 200) {
+            $object = new self($response[1], $client);
 
             return $object;
         } else {
@@ -74,48 +77,57 @@ class Order extends ApruveObject {
         }
     }
 
-    public static function getInvoices( $apruveOrderId ) {
+    public static function getInvoices($apruveOrderId)
+    {
         $client   = new Client();
-        $response = $client->get( sprintf( __( self::$INVOICES_PATH ), $apruveOrderId ) );
+        $response = $client->get(sprintf(__(self::$INVOICES_PATH), $apruveOrderId));
 
         return $response[1];
     }
 
-    public static function cancel( $apruveOrderId ) {
+    public static function cancel($apruveOrderId)
+    {
         $client = new Client();
-        echo sprintf( __( self::$CANCEL_PATH, $apruveOrderId ) );
-        $response = $client->post( sprintf( __( self::$CANCEL_PATH ), $apruveOrderId ), '' );
+        echo sprintf(__(self::$CANCEL_PATH, $apruveOrderId));
+        $response = $client->post(sprintf(__(self::$CANCEL_PATH), $apruveOrderId), '');
 
         return $response[0] == 200;
     }
 
-    public function setShippingCents( $shipping_cents ) {
+    public function setShippingCents($shipping_cents)
+    {
         $this->shipping_cents = $shipping_cents;
     }
 
-    public function setTaxCents( $tax_cents ) {
+    public function setTaxCents($tax_cents)
+    {
         $this->tax_cents = $tax_cents;
     }
 
-    public function setAmountCents( $amount_cents ) {
+    public function setAmountCents($amount_cents)
+    {
         $this->amount_cents = $amount_cents;
     }
 
-    public function setMerchantOrderId( $merchant_order_id ) {
+    public function setMerchantOrderId($merchant_order_id)
+    {
         $this->merchant_order_id = $merchant_order_id;
     }
 
-    public function setExpireAt( $expire_at ) {
+    public function setExpireAt($expire_at)
+    {
         $this->expire_at = $expire_at;
     }
 
-    public function toSecureHash() {
+    public function toSecureHash()
+    {
         $apiKey = $this->client->getApiKey();
 
-        return hash( "sha256", $apiKey . $this->toSecureString() );
+        return hash("sha256", $apiKey.$this->toSecureString());
     }
 
-    public function toSecureString() {
+    public function toSecureString()
+    {
         $hashString = $this->toHashString();
         foreach ( $this->order_items as $order_item ) {
             $hashString .= $order_item->toHashString();
@@ -124,17 +136,19 @@ class Order extends ApruveObject {
         return $hashString;
     }
 
-    public function addOrderItem( $order_item ) {
-        if ( get_class( $order_item ) == 'Apruve\OrderItem' ) {
-            return array_push( $this->order_items, $order_item );
+    public function addOrderItem($order_item)
+    {
+        if (get_class($order_item) == 'Apruve\OrderItem') {
+            return array_push($this->order_items, $order_item);
         } else {
             return false;
         }
     }
 
-    public function update() {
-        $response = $this->client->put( sprintf( self::$UPDATE_PATH, $this->id ),
-            $this->toJson() );
+    public function update()
+    {
+        $response = $this->client->put(sprintf(self::$UPDATE_PATH, $this->id),
+            $this->toJson());
 
         return $response[0] == 200;
     }

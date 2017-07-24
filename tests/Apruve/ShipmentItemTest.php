@@ -12,20 +12,20 @@ class ShipmentItemTest extends PHPUnit_Framework_TestCase
         $item_vars = get_class_vars(get_class($this->shipmentItem));
 
         $this->assertEquals(array_keys($item_vars), array(
+            'title',
             'amount_cents',
-            'invoice_id',
-            'shipper',
-            'tracking_number',
-            'shipped_at',
-            'delivered_at',
+            'quantity',
+            'price_ea_cents',
             'merchant_notes',
-            'uuid',
-            'created_at',
-            'currency',
-            'tax_cents',
+            'description',
+            'variant_info',
+            'sku',
+            'vendor',
+            'view_product_url',
             'shipping_cents',
-            'status',
-            'merchant_shipment_id'
+            'tax_cents',
+            'price_total_cents',
+            'currency'
         ));
         $this->assertEquals(14, count($item_vars));
     }
@@ -34,20 +34,20 @@ class ShipmentItemTest extends PHPUnit_Framework_TestCase
     {
         $this->assertJsonStringEqualsJsonString(
             '{
-          "amount_cents": 34000,
-          "invoice_id": "730cd103b8e8377359851498e5c34f7b",
-          "shipper": "UPS",
-          "tracking_number": "alphabetagamma",
-          "shipped_at": "2017-07-01T10:12:27-05:00",
-          "delivered_at": "2017-07-22T10:12:27-05:00",
-          "merchant_notes": "i am notes",
-          "uuid": "91ac96c0ffc9577ecb634ad726b1874e",
-          "created_at": "2017-06-01T10:12:27-05:00",
-          "currency": "USD",
-          "tax_cents": 2601,
+          "title": "A title",
+          "amount_cents": 3400,
+          "quantity": 1,
+          "price_ea_cents": 3400,
+          "merchant_notes": "some notes.",
+          "description": "a description.",
+          "variant_info": "some variation.",
+          "sku": "a sku",
+          "vendor": "ACME",
+          "view_product_url": "A Url.",
           "shipping_cents": 1000,
-          "status": "fulfilled",
-          "merchant_shipment_id": "merchantspecified"
+          "tax_cents": 2601,
+          "price_total_cents": 3400,
+          "currency": "USD"
        }', $this->shipmentItem->toJson()
         );
     }
@@ -55,20 +55,20 @@ class ShipmentItemTest extends PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->shipmentItem = new ShipmentItem([
-            'amount_cents'         => 34000,
-            'invoice_id'           => '730cd103b8e8377359851498e5c34f7b',
-            'shipper'              => 'UPS',
-            'tracking_number'      => 'alphabetagamma',
-            'shipped_at'           => '2017-07-01T10:12:27-05:00',
-            'delivered_at'         => '2017-07-22T10:12:27-05:00',
-            'merchant_notes'       => 'i am notes',
-            'uuid'                 => '91ac96c0ffc9577ecb634ad726b1874e',
-            'created_at'           => '2017-06-01T10:12:27-05:00',
-            'currency'             => 'USD',
-            'tax_cents'            => 2601,
-            'shipping_cents'       => 1000,
-            'status'               => 'fulfilled',
-            'merchant_shipment_id' => 'merchantspecified',
+            'title'             => 'A title',
+            'amount_cents'      => 3400,
+            'quantity'          => 1,
+            'price_ea_cents'    => 3400,
+            'merchant_notes'    => 'some notes.',
+            'description'       => 'a description.',
+            'variant_info'      => 'some variation.',
+            'sku'               => 'a sku',
+            'vendor'            => 'ACME',
+            'view_product_url'  => 'A Url.',
+            'shipping_cents'    => 1000,
+            'tax_cents'         => 2601,
+            'price_total_cents' => 3400,
+            'currency'          => 'USD'
         ], $this->getMockBuilder('Apruve\Client')
                 ->setConstructorArgs(['a key', Apruve\Environment::DEV()])
                 ->getMock()

@@ -8,48 +8,51 @@ class ShipmentItem extends ApruveObject
 {
 
     protected static $hash_order = [
+        'title',
         'amount_cents',
-        'invoice_id',
-        'shipper',
-        'tracking_number',
-        'shipped_at',
-        'delivered_at',
+        'quantity',
+        'price_ea_cents',
         'merchant_notes',
-        'uuid',
-        'created_at',
-        'currency',
-        'tax_cents',
+        'description',
+        'variant_info',
+        'sku',
+        'vendor',
+        'sku',
+        'view_product_url',
         'shipping_cents',
-        'merchant_shipment_id',
+        'tax_cents',
+        'price_total_cents',
+        'currency',
     ];
     protected static $json_fields = [
+        'title',
         'amount_cents',
-        'invoice_id',
-        'shipper',
-        'tracking_number',
-        'shipped_at',
-        'delivered_at',
+        'quantity',
+        'price_ea_cents',
         'merchant_notes',
-        'uuid',
-        'created_at',
-        'currency',
-        'tax_cents',
+        'description',
+        'variant_info',
+        'sku',
+        'vendor',
+        'sku',
+        'view_product_url',
         'shipping_cents',
-        'status',
-        'merchant_shipment_id',
+        'tax_cents',
+        'price_total_cents',
+        'currency',
     ];
+    var $title;
     var $amount_cents;
-    var $invoice_id;
-    var $shipper;
-    var $tracking_number;
-    var $shipped_at;
-    var $delivered_at;
+    var $quantity;
+    var $price_ea_cents;
     var $merchant_notes;
-    var $uuid;
-    var $created_at;
-    var $currency;
-    var $tax_cents;
+    var $description;
+    var $variant_info;
+    var $sku;
+    var $vendor;
+    var $view_product_url;
     var $shipping_cents;
-    var $status;
-    var $merchant_shipment_id;
+    var $tax_cents;
+    var $price_total_cents;
+    var $currency;
 }
