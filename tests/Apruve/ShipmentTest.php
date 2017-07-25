@@ -16,6 +16,7 @@ class ShipmentTest extends PHPUnit_Framework_TestCase
         $item_vars = get_class_vars(get_class($this->shipment));
 
         $this->assertEquals(array_keys($item_vars), array(
+            'id',
             'amount_cents',
             'invoice_id',
             'shipper',
@@ -32,13 +33,14 @@ class ShipmentTest extends PHPUnit_Framework_TestCase
             'merchant_shipment_id',
             'shipment_items'
         ));
-        $this->assertEquals(15, count($item_vars));
+        $this->assertEquals(16, count($item_vars));
     }
 
     public function testToJsonString()
     {
         $this->assertJsonStringEqualsJsonString(
             '{
+          "id": "uniqueid",
           "amount_cents": 34000,
           "invoice_id": "730cd103b8e8377359851498e5c34f7b",
           "shipper": "UPS",
@@ -79,6 +81,7 @@ class ShipmentTest extends PHPUnit_Framework_TestCase
     {
         Apruve\Client::init('a key', Apruve\Environment::DEV());
         $this->shipment = new Shipment([
+            'id'                   => 'uniqueid',
             'amount_cents'         => 34000,
             'invoice_id'           => '730cd103b8e8377359851498e5c34f7b',
             'shipper'              => 'UPS',

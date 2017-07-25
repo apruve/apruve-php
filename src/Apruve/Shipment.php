@@ -9,6 +9,7 @@ class Shipment extends ApruveObject
 
     protected static $SHIPMENTS_PATH = '/invoices/%s/shipments';
     protected static $hash_order = [
+        'id',
         'amount_cents',
         'invoice_id',
         'shipper',
@@ -25,6 +26,7 @@ class Shipment extends ApruveObject
         'shipment_items',
     ];
     protected static $json_fields = [
+        'id',
         'amount_cents',
         'invoice_id',
         'shipper',
@@ -41,6 +43,7 @@ class Shipment extends ApruveObject
         'merchant_shipment_id',
         'shipment_items',
     ];
+    var $id;
     var $amount_cents;
     var $invoice_id;
     var $shipper;
