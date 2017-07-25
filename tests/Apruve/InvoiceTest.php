@@ -19,6 +19,7 @@ class InvoiceTest extends PHPUnit_Framework_TestCase
             'order_id',
             'status',
             'amount_cents',
+            'price_total_cents',
             'currency',
             'merchant_notes',
             'api_url',
@@ -27,7 +28,7 @@ class InvoiceTest extends PHPUnit_Framework_TestCase
             'updated_at',
             'invoice_items',
         ]);
-        $this->assertEquals(11, count($vars));
+        $this->assertEquals(12, count($vars));
 
     }
 
@@ -49,7 +50,8 @@ class InvoiceTest extends PHPUnit_Framework_TestCase
             "variant_info": null,
             "sku": null,
             "vendor": null,
-            "view_product_url": null
+            "view_product_url": null,
+            "price_total_cents": null
           }
         ]
        }',
@@ -129,6 +131,7 @@ class InvoiceTest extends PHPUnit_Framework_TestCase
                     'amount_cents'   => 100,
                     'quantity'       => 1,
                     'price_ea_cents' => 100
+
                 ]
             ]
         ]);

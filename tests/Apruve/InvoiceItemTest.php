@@ -13,7 +13,7 @@ class InvoiceItemTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals(array_keys($item_vars), array(
             'title',
-            'amount_cents',
+            'price_total_cents',
             'quantity',
             'price_ea_cents',
             'merchant_notes',
@@ -32,6 +32,7 @@ class InvoiceItemTest extends PHPUnit_Framework_TestCase
             '{
           "title": "A title",
           "amount_cents": 3400,
+          "price_total_cents": 3400,
           "quantity": 1,
           "price_ea_cents": 3400,
           "merchant_notes": "some notes.",
@@ -49,6 +50,7 @@ class InvoiceItemTest extends PHPUnit_Framework_TestCase
         $this->item = new InvoiceItem([
             'title'            => 'A title',
             'amount_cents'     => 3400,
+            'price_total_cents'     => 3400,
             'quantity'         => 1,
             'price_ea_cents'   => 3400,
             'merchant_notes'   => 'some notes.',
