@@ -14,6 +14,7 @@ class Order extends ApruveObject {
 		'tax_cents',
 		'shipping_cents',
 		'expire_at',
+		'invoice_on_create'
 	];
 	protected static $json_fields = [
 		'id',
@@ -24,6 +25,7 @@ class Order extends ApruveObject {
 		'tax_cents',
 		'shipping_cents',
 		'expire_at',
+		'invoice_on_create',
 		'order_items',
 	];
 	private static $UPDATE_PATH = '/orders/%s';
@@ -39,6 +41,7 @@ class Order extends ApruveObject {
 	var $shipping_cents;
 	var $currency;
 	var $expire_at;
+	var $invoice_on_create = 'false';
 	var $order_items = [];
 	var $api_url;
 	var $view_url;

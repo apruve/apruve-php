@@ -24,13 +24,14 @@ class OrderTest extends PHPUnit_Framework_TestCase {
 			'shipping_cents',
 			'currency',
 			'expire_at',
+			'invoice_on_create',
 			'order_items',
 			'api_url',
 			'view_url',
 			'created_at',
 			'updated_at',
 		] );
-		$this->assertEquals( 15, count( $vars ) );
+		$this->assertEquals( 16, count( $vars ) );
 
 	}
 
@@ -59,7 +60,8 @@ class OrderTest extends PHPUnit_Framework_TestCase {
             "vendor": null,
             "view_product_url": null
           }
-        ]
+        ],
+        "invoice_on_create": "false"
        }',
 			$this->po->toJson()
 		);
@@ -67,14 +69,14 @@ class OrderTest extends PHPUnit_Framework_TestCase {
 
 	public function testToHashString() {
 		$this->assertEquals(
-			'asdf1234order12346000USD50010002014-07-15T10:12:27-05:00',
+			'asdf1234order12346000USD50010002014-07-15T10:12:27-05:00false',
 			$this->po->toHashString()
 		);
 	}
 
 	public function testToSecureString() {
 		$this->assertEquals(
-			'asdf1234order12346000USD50010002014-07-15T10:12:27-05:00a title4500',
+			'asdf1234order12346000USD50010002014-07-15T10:12:27-05:00falsea title4500',
 			$this->po->toSecureString()
 		);
 	}
@@ -82,7 +84,7 @@ class OrderTest extends PHPUnit_Framework_TestCase {
 	public function testToSecureHash() {
 		Apruve\Client::init( 'a key', Apruve\Environment::DEV() );
 		$this->assertEquals(
-			hash( 'sha256', 'a keyasdf1234order12346000USD50010002014-07-15T10:12:27-05:00a title4500' ),
+			hash( 'sha256', 'a keyasdf1234order12346000USD50010002014-07-15T10:12:27-05:00falsea title4500' ),
 			$this->po->toSecureHash()
 		);
 	}

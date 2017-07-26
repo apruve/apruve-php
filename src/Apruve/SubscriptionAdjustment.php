@@ -37,7 +37,8 @@ class SubscriptionAdjustment extends ApruveObject {
 		if ( $client == null ) {
 			$client = new Client();
 		}
-		$response = $client->get( sprintf( self::$SUBSCRIPTION_ADJUSTMENT_PATH, $subscription_id ) . $subscription_adjustment_id );
+		$response = $client->get( sprintf( self::$SUBSCRIPTION_ADJUSTMENT_PATH,
+				$subscription_id ) . $subscription_adjustment_id );
 		if ( $response[0] == 200 ) {
 			return new self( $response[1], $client );
 		} else {
@@ -49,7 +50,8 @@ class SubscriptionAdjustment extends ApruveObject {
 		if ( $client == null ) {
 			$client = new Client();
 		}
-		$response = $client->delete( sprintf( self::$SUBSCRIPTION_ADJUSTMENT_PATH, $subscription_id ) . $subscription_adjustment_id );
+		$response = $client->delete( sprintf( self::$SUBSCRIPTION_ADJUSTMENT_PATH,
+				$subscription_id ) . $subscription_adjustment_id );
 		if ( $response[0] == 200 ) {
 			return new self( $response[1], $client );
 		} else {

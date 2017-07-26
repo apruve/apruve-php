@@ -1,5 +1,4 @@
 <?php
-
 // Invoice
 namespace Apruve;
 
@@ -19,6 +18,7 @@ class Invoice extends ApruveObject {
 	var $order_id;
 	var $status;
 	var $amount_cents;
+	var $price_total_cents;
 	var $currency;
 	var $merchant_notes;
 	var $api_url;
@@ -60,6 +60,14 @@ class Invoice extends ApruveObject {
 			return new self( $response[1], $this->client );
 		} else {
 			return $response[2];
+		}
+	}
+
+	public function addInvoiceItem( $invoice_item ) {
+		if ( get_class( $invoice_item ) == 'Apruve\InvoiceItem' ) {
+			return array_push( $this->invoice_items, $invoice_item );
+		} else {
+			return false;
 		}
 	}
 
