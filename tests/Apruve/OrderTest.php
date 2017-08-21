@@ -133,6 +133,53 @@ class OrderTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals( 'Apruve\Order', get_class( $po ) );
 	}
 
+	public function testSave() {
+
+		$client = $this->getMockBuilder( 'Apruve\Client' )
+		               ->setMethods( [ 'post' ] )
+		               ->getMock();
+		$client->expects( $this->Once() )
+		       ->method( 'post' )
+		       ->with( $this->equalTo( '/orders' ),
+			       $this->anything() )
+		       ->will( $this->returnValue( [
+			       201,
+			       [
+				       'id'           => 'asdf1234',
+				       'amount_cents' => 6000,
+				       'currency'     => 'USD',
+				       'order_items'       => [
+					       [
+						       'title'        => 'a title',
+						       'amount_cents' => 4500,
+						       'order_id'     => 'id',
+					       ]
+				       ]
+			       ],
+			       ''
+		       ] )
+		       );
+
+		$item = new OrderItem(
+			[
+				'title'        => 'a title',
+				'amount_cents' => 4500,
+				'order_id'     => 'id',
+			]
+		);
+		$order = new Order( [
+			"amount_cents"   => 6000,
+			"merchant_notes" => 'some notes',
+			"order_items" => $item
+		], $client );
+		$i       = $order->save();
+
+		$this->assertEquals( 'asdf1234', $i->id );
+		$this->assertEquals( 'Apruve\Order', get_class( $i ) );
+		$this->assertEquals( $i->order_items, $this->po->order_items );
+
+	}
+
 	public function testUpdate() {
 		$client = $this->getMockBuilder( 'Apruve\Client' )
 		               ->setMethods( [ 'put' ] )

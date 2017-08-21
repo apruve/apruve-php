@@ -5,7 +5,7 @@ namespace Apruve;
 require_once 'ApruveObject.php';
 
 class Order extends ApruveObject {
-	protected static $ORDERS_PATH = '/orders/';
+	protected static $ORDERS_PATH = '/orders';
 	protected static $hash_order = [
 		'merchant_id',
 		'merchant_order_id',
@@ -63,7 +63,7 @@ class Order extends ApruveObject {
 		if ( $client == null ) {
 			$client = new Client();
 		}
-		$response = $client->get( self::$ORDERS_PATH . $order_id );
+		$response = $client->get( self::$ORDERS_PATH . '/' . $order_id );
 
 		if ( $response[0] == 200 ) {
 			$object = new self( $response[1], $client );
@@ -129,6 +129,16 @@ class Order extends ApruveObject {
 			return array_push( $this->order_items, $order_item );
 		} else {
 			return false;
+		}
+	}
+
+	public function save() {
+		$response = $this->client->post(
+			self::$ORDERS_PATH, $this->toJson() );
+		if ( $response[0] == 201 ) {
+			return new self( $response[1], $this->client );
+		} else {
+			return $response[2];
 		}
 	}
 
