@@ -38,7 +38,12 @@ abstract class ApruveObject {
 			if ( gettype( $this->$key ) == "array" ) {
 				$jsonArr[ $key ] = [];
 				foreach ( $this->$key as $item ) {
-					array_push( $jsonArr[ $key ], $item->toJsonArray() );
+					if ( is_object( $item ) && get_class( $item ) ) {
+						array_push( $jsonArr[ $key ], $item->toJsonArray() );
+					} else {
+						$jsonArr[ $key ] = [ $item ];
+						break;
+					}
 				}
 			} else {
 				$jsonArr[ $key ] = $this->$key;
