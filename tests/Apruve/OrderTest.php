@@ -24,45 +24,50 @@ class OrderTest extends PHPUnit_Framework_TestCase {
 			'shipping_cents',
 			'currency',
 			'expire_at',
+			'accepts_payment_terms',
+			'finalize_on_create',
 			'invoice_on_create',
 			'order_items',
+			'payment_term',
 			'api_url',
 			'view_url',
 			'created_at',
 			'updated_at',
 		] );
-		$this->assertEquals( 16, count( $vars ) );
+		$this->assertEquals( 19, count( $vars ) );
 
 	}
 
 	public function testToJson() {
 		$this->assertJsonStringEqualsJsonString(
 			'{
-        "id": "id",
-        "merchant_id": "asdf1234",
-        "merchant_order_id": "order1234",
-        "amount_cents": 6000,
-        "tax_cents": 500,
-        "shipping_cents": 1000,
-        "currency": "USD",
-        "expire_at": "2014-07-15T10:12:27-05:00",
-        "order_items": [
-          {
-            "title": "a title",
-            "amount_cents": 4500,
-            "plan_code": null,
-            "price_ea_cents": null,
-            "quantity": null,
-            "merchant_notes": null,
-            "description": null,
-            "variant_info": null,
-            "sku": null,
-            "vendor": null,
-            "view_product_url": null
-          }
-        ],
-        "invoice_on_create": "false"
-       }',
+	"id": "id",
+	"merchant_id": "asdf1234",
+	"merchant_order_id": "order1234",
+	"amount_cents": 6000,
+	"currency": "USD",
+	"tax_cents": 500,
+	"shipping_cents": 1000,
+	"expire_at": "2014-07-15T10:12:27-05:00",
+	"accepts_payment_terms": null,
+	"finalize_on_create": null,
+	"invoice_on_create": "false",
+	"payment_term": [],
+	"order_items": [{
+		"title": "a title",
+		"price_total_cents": null,
+		"price_ea_cents": null,
+		"quantity": null,
+		"merchant_notes": null,
+		"description": null,
+		"variant_info": null,
+		"sku": null,
+		"vendor": null,
+		"view_product_url": null
+	}],
+	"shopper_id": "foo",
+	"customer_id": "bar"
+}',
 			$this->po->toJson()
 		);
 	}
@@ -76,7 +81,7 @@ class OrderTest extends PHPUnit_Framework_TestCase {
 
 	public function testToSecureString() {
 		$this->assertEquals(
-			'asdf1234order12346000USD50010002014-07-15T10:12:27-05:00falsea title4500',
+			'asdf1234order12346000USD50010002014-07-15T10:12:27-05:00falsea title',
 			$this->po->toSecureString()
 		);
 	}
@@ -84,7 +89,7 @@ class OrderTest extends PHPUnit_Framework_TestCase {
 	public function testToSecureHash() {
 		Apruve\Client::init( 'a key', Apruve\Environment::DEV() );
 		$this->assertEquals(
-			hash( 'sha256', 'a keyasdf1234order12346000USD50010002014-07-15T10:12:27-05:00falsea title4500' ),
+			hash( 'sha256', 'a keyasdf1234order12346000USD50010002014-07-15T10:12:27-05:00falsea title' ),
 			$this->po->toSecureHash()
 		);
 	}
@@ -148,7 +153,7 @@ class OrderTest extends PHPUnit_Framework_TestCase {
 				       'id'           => 'asdf1234',
 				       'amount_cents' => 6000,
 				       'currency'     => 'USD',
-				       'order_items'       => [
+				       'order_items'  => [
 					       [
 						       'title'        => 'a title',
 						       'amount_cents' => 4500,
@@ -160,7 +165,7 @@ class OrderTest extends PHPUnit_Framework_TestCase {
 		       ] )
 		       );
 
-		$item = new OrderItem(
+		$item  = new OrderItem(
 			[
 				'title'        => 'a title',
 				'amount_cents' => 4500,
@@ -170,9 +175,11 @@ class OrderTest extends PHPUnit_Framework_TestCase {
 		$order = new Order( [
 			"amount_cents"   => 6000,
 			"merchant_notes" => 'some notes',
-			"order_items" => $item
+			'shopper_id'     => 'foo',
+			'customer_id'    => 'bar',
+			"order_items"    => $item
 		], $client );
-		$i       = $order->save();
+		$i     = $order->save();
 
 		$this->assertEquals( 'asdf1234', $i->id );
 		$this->assertEquals( 'Apruve\Order', get_class( $i ) );
@@ -205,6 +212,8 @@ class OrderTest extends PHPUnit_Framework_TestCase {
 		$po = new Order( [
 			'id'                => 'asdf1234',
 			'merchant_id'       => 'asdf1234',
+			'shopper_id'        => 'foo',
+			'customer_id'       => 'bar',
 			'merchant_order_id' => 'order1234',
 			'amount_cents'      => 6000,
 			'currency'          => 'USD'
@@ -223,6 +232,8 @@ class OrderTest extends PHPUnit_Framework_TestCase {
 		$this->po = new Order( [
 			'id'                => 'id',
 			'merchant_id'       => 'asdf1234',
+			'shopper_id'        => 'foo',
+			'customer_id'       => 'bar',
 			'merchant_order_id' => 'order1234',
 			'amount_cents'      => 6000,
 			'tax_cents'         => 500,

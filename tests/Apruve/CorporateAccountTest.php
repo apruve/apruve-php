@@ -27,7 +27,7 @@ class CorporateAccountTest extends PHPUnit_Framework_TestCase {
 	public function testToJson() {
 		$this->assertJsonStringEqualsJsonString(
 			'{
-		"id": null,
+		"id": "asdf1234",
         "customer_uuid": "b76ac505389e7814eb10fb4fdc33a50b",
         "merchant_uuid": "5ca2ab51d10b490cba7b22934c9fe913",
         "type": "corporate",
@@ -51,7 +51,7 @@ class CorporateAccountTest extends PHPUnit_Framework_TestCase {
 		               ->getMock();
 		$client->expects( $this->Once() )
 		       ->method( 'get' )
-		       ->with( $this->equalTo( '/merchants/asdf1234/corporate_account' ) )
+		       ->with( $this->equalTo( '/merchants/asdf1234/corporate_accounts?email=corporateuser@apruve.com' ) )
 		       ->will( $this->returnValue( [
 			       200,
 			       [
@@ -61,13 +61,6 @@ class CorporateAccountTest extends PHPUnit_Framework_TestCase {
 				       'type'                       => 'corporate',
 				       'payment_term_strategy_name' => 'Net30',
 				       'name'                       => 'MyCorporateAccount',
-				       'authorized_buyers'          => [
-					       [
-						       'id'    => 'd9e10e59140513b61998e292088c8194',
-						       'name'  => 'Corporate Corbin',
-						       'email' => 'corporateuser@apruve.com'
-					       ]
-				       ]
 			       ],
 			       ''
 		       ] )
@@ -82,20 +75,20 @@ class CorporateAccountTest extends PHPUnit_Framework_TestCase {
 	protected function setUp() {
 		Apruve\Client::init( 'a key', Apruve\Environment::DEV() );
 		$this->corporate_account = new CorporateAccount( [
+			'id'                         => 'asdf1234',
 			'customer_uuid'              => 'b76ac505389e7814eb10fb4fdc33a50b',
 			'merchant_uuid'              => '5ca2ab51d10b490cba7b22934c9fe913',
 			'type'                       => 'corporate',
 			'payment_term_strategy_name' => 'Net30',
-			'name'                       => 'MyCorporateAccount',
 			'authorized_buyers'          => [
 				[
 					'id'    => 'd9e10e59140513b61998e292088c8194',
 					'name'  => 'Corporate Corbin',
 					'email' => 'corporateuser@apruve.com'
 				]
-			]
+			],
+			'name'                       => 'MyCorporateAccount'
 		] );
-
 	}
 
 

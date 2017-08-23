@@ -6,7 +6,7 @@ require_once 'ApruveObject.php';
 
 class CorporateAccount extends ApruveObject {
 
-	protected static $ACCOUNTS_PATH = '/merchants/%s/corporate_account';
+	protected static $ACCOUNTS_PATH = '/merchants/%s/corporate_accounts';
 	protected static $hash_order = [];
 	protected static $json_fields = [
 		'id',
@@ -26,24 +26,11 @@ class CorporateAccount extends ApruveObject {
 	var $name;
 	var $authorized_buyers = [];
 
-	public function __construct( $corporate_account = [], $client = null ) {
-		if ( array_key_exists( 'authorized_buyers', $corporate_account ) ) {
-			foreach ( $corporate_account['authorized_buyers'] as $buyer ) {
-				if ( is_array( $buyer ) ) {
-					$corporate_account['authorized_buyers'] += $buyer;
-				}
-			}
-		}
-
-		parent::__construct( $corporate_account, $client );
-	}
-
 	public static function get( $merchant_key, $email, $client = null ) {
 		if ( $client == null ) {
 			$client = new Client();
 		}
-		$email_payload = sprintf('{"email":"%s"}', $email);
-		$response = $client->get( sprintf( self::$ACCOUNTS_PATH, $merchant_key ), $email_payload );
+		$response = $client->get( sprintf( self::$ACCOUNTS_PATH, $merchant_key ) . '?email=' . $email );
 
 		if ( $response[0] == 200 ) {
 			return new self( $response[1], $client );
