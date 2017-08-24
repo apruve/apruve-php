@@ -33,7 +33,7 @@ class CorporateAccount extends ApruveObject {
 		$response = $client->get( sprintf( self::$ACCOUNTS_PATH, $merchant_key ) . '?email=' . $email );
 
 		if ( $response[0] == 200 ) {
-			return new self( $response[1], $client );
+			return new self( array_pop( $response[1] ), $client );
 		} else {
 			return $response[2];
 		}

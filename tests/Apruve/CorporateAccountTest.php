@@ -55,14 +55,15 @@ class CorporateAccountTest extends PHPUnit_Framework_TestCase {
 		       ->will( $this->returnValue( [
 			       200,
 			       [
-				       'id'                         => 'asdf1234',
-				       'customer_uuid'              => 'b76ac505389e7814eb10fb4fdc33a50b',
-				       'merchant_uuid'              => '5ca2ab51d10b490cba7b22934c9fe913',
-				       'type'                       => 'corporate',
-				       'payment_term_strategy_name' => 'Net30',
-				       'name'                       => 'MyCorporateAccount',
-			       ],
-			       ''
+				       [
+					       'id'                         => 'asdf1234',
+					       'customer_uuid'              => 'b76ac505389e7814eb10fb4fdc33a50b',
+					       'merchant_uuid'              => '5ca2ab51d10b490cba7b22934c9fe913',
+					       'type'                       => 'corporate',
+					       'payment_term_strategy_name' => 'Net30',
+					       'name'                       => 'MyCorporateAccount',
+				       ]
+			       ]
 		       ] )
 		       );
 

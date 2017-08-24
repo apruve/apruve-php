@@ -12,7 +12,7 @@ abstract class ApruveObject {
 		} else {
 			$this->client = $client;
 		}
-		if (is_array($values) || is_object($values)) {
+		if ( is_array( $values ) || is_object( $values ) ) {
 			foreach ( $values as $name => $value ) {
 				if ( is_array( $value ) ) {
 					$this->$name = [];
@@ -21,8 +21,6 @@ abstract class ApruveObject {
 					$this->$name = $value;
 				}
 			}
-		} else {
-			echo $values;
 		}
 	}
 
@@ -30,7 +28,7 @@ abstract class ApruveObject {
 		$ret          = '';
 		$called_class = get_called_class();
 		foreach ( $called_class::$hash_order as $key ) {
-			if(is_array($this->$key)){
+			if ( is_array( $this->$key ) ) {
 				foreach ( $this->$key as $item ) {
 					$ret .= $item->toHashString();
 				}
