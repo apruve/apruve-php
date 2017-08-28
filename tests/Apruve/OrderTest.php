@@ -55,7 +55,7 @@ class OrderTest extends PHPUnit_Framework_TestCase {
 	"payment_term": [],
 	"order_items": [{
 		"title": "a title",
-		"price_total_cents": null,
+		"amount_cents": 4500,
 		"price_ea_cents": null,
 		"quantity": null,
 		"merchant_notes": null,
@@ -81,7 +81,7 @@ class OrderTest extends PHPUnit_Framework_TestCase {
 
 	public function testToSecureString() {
 		$this->assertEquals(
-			'asdf1234order12346000USD50010002014-07-15T10:12:27-05:00falsea title',
+			'asdf1234order12346000USD50010002014-07-15T10:12:27-05:00falsea title4500',
 			$this->po->toSecureString()
 		);
 	}
@@ -89,7 +89,7 @@ class OrderTest extends PHPUnit_Framework_TestCase {
 	public function testToSecureHash() {
 		Apruve\Client::init( 'a key', Apruve\Environment::DEV() );
 		$this->assertEquals(
-			hash( 'sha256', 'a keyasdf1234order12346000USD50010002014-07-15T10:12:27-05:00falsea title' ),
+			hash( 'sha256', 'a keyasdf1234order12346000USD50010002014-07-15T10:12:27-05:00falsea title4500' ),
 			$this->po->toSecureHash()
 		);
 	}
