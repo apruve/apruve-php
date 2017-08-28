@@ -8,7 +8,7 @@ class OrderItem extends ApruveObject {
 
 	protected static $hash_order = [
 		'title',
-		'price_total_cents',
+		'amount_cents',
 		'price_ea_cents',
 		'quantity',
 		'merchant_notes',
@@ -20,7 +20,7 @@ class OrderItem extends ApruveObject {
 	];
 	protected static $json_fields = [
 		'title',
-		'price_total_cents',
+		'amount_cents',
 		'price_ea_cents',
 		'quantity',
 		'merchant_notes',

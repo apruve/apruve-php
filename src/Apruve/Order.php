@@ -14,8 +14,6 @@ class Order extends ApruveObject {
 		'tax_cents',
 		'shipping_cents',
 		'expire_at',
-		'accepts_payment_terms',
-		'finalize_on_create',
 		'invoice_on_create'
 	];
 	protected static $json_fields = [
