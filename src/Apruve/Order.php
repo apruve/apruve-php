@@ -5,7 +5,7 @@ namespace Apruve;
 require_once 'ApruveObject.php';
 
 class Order extends ApruveObject {
-	protected static $ORDERS_PATH = '/orders/';
+	protected static $ORDERS_PATH = '/orders';
 	protected static $hash_order = [
 		'merchant_id',
 		'merchant_order_id',
@@ -25,8 +25,13 @@ class Order extends ApruveObject {
 		'tax_cents',
 		'shipping_cents',
 		'expire_at',
+		'accepts_payment_terms',
+		'finalize_on_create',
 		'invoice_on_create',
+		'payment_term',
 		'order_items',
+		'shopper_id',
+		'customer_id'
 	];
 	private static $UPDATE_PATH = '/orders/%s';
 	private static $CANCEL_PATH = '/orders/%s/cancel';
@@ -41,8 +46,11 @@ class Order extends ApruveObject {
 	var $shipping_cents;
 	var $currency;
 	var $expire_at;
+	var $accepts_payment_terms;
+	var $finalize_on_create;
 	var $invoice_on_create = 'false';
 	var $order_items = [];
+	var $payment_term = [];
 	var $api_url;
 	var $view_url;
 	var $created_at;
@@ -56,6 +64,7 @@ class Order extends ApruveObject {
 				}
 			}
 		}
+
 		parent::__construct( $order, $client );
 	}
 
@@ -63,7 +72,7 @@ class Order extends ApruveObject {
 		if ( $client == null ) {
 			$client = new Client();
 		}
-		$response = $client->get( self::$ORDERS_PATH . $order_id );
+		$response = $client->get( self::$ORDERS_PATH . '/' . $order_id );
 
 		if ( $response[0] == 200 ) {
 			$object = new self( $response[1], $client );
@@ -129,6 +138,16 @@ class Order extends ApruveObject {
 			return array_push( $this->order_items, $order_item );
 		} else {
 			return false;
+		}
+	}
+
+	public function save() {
+		$response = $this->client->post(
+			self::$ORDERS_PATH, $this->toJson() );
+		if ( $response[0] == 201 ) {
+			return new self( $response[1], $this->client );
+		} else {
+			return $response[2];
 		}
 	}
 

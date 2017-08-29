@@ -12,8 +12,15 @@ abstract class ApruveObject {
 		} else {
 			$this->client = $client;
 		}
-		foreach ( $values as $name => $value ) {
-			$this->$name = $value;
+		if ( is_array( $values ) || is_object( $values ) ) {
+			foreach ( $values as $name => $value ) {
+				if ( is_array( $value ) ) {
+					$this->$name = [];
+					$this->$name = $value;
+				} else {
+					$this->$name = $value;
+				}
+			}
 		}
 	}
 
@@ -21,7 +28,13 @@ abstract class ApruveObject {
 		$ret          = '';
 		$called_class = get_called_class();
 		foreach ( $called_class::$hash_order as $key ) {
-			$ret .= $this->$key;
+			if ( is_array( $this->$key ) ) {
+				foreach ( $this->$key as $item ) {
+					$ret .= $item->toHashString();
+				}
+			} else {
+				$ret .= $this->$key;
+			}
 		}
 
 		return $ret;
@@ -38,7 +51,11 @@ abstract class ApruveObject {
 			if ( gettype( $this->$key ) == "array" ) {
 				$jsonArr[ $key ] = [];
 				foreach ( $this->$key as $item ) {
-					array_push( $jsonArr[ $key ], $item->toJsonArray() );
+					if ( is_array( $item ) || is_string( $item ) ) {
+						array_push( $jsonArr[ $key ], $item );
+					} else {
+						array_push( $jsonArr[ $key ], $item->toJsonArray() );
+					}
 				}
 			} else {
 				$jsonArr[ $key ] = $this->$key;

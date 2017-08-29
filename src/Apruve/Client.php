@@ -87,9 +87,12 @@ class Client {
 		return new CurlRequest( $url );
 	}
 
-	public function get( $path ) {
+	public function get( $path, $payload = null ) {
 		$client = $this->restRequest( $path );
 		$client->setOption( CURLOPT_RETURNTRANSFER, true );
+		if ( ! empty( $payload ) ) {
+			$client->setOption( CURLOPT_POSTFIELDS, $payload );
+		}
 		$response = $client->execute();
 		$ret      = [ $client->getInfo( CURLINFO_HTTP_CODE ), json_decode( $response, true ), $client->error() ];
 		$client->close();
