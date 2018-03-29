@@ -24,6 +24,7 @@ class OrderTest extends PHPUnit_Framework_TestCase {
 			'shipping_cents',
 			'currency',
 			'expire_at',
+			'po_number',
 			'accepts_payment_terms',
 			'finalize_on_create',
 			'invoice_on_create',
@@ -34,7 +35,7 @@ class OrderTest extends PHPUnit_Framework_TestCase {
 			'created_at',
 			'updated_at',
 		] );
-		$this->assertEquals( 19, count( $vars ) );
+		$this->assertEquals( 20, count( $vars ) );
 
 	}
 
@@ -49,6 +50,7 @@ class OrderTest extends PHPUnit_Framework_TestCase {
 	"tax_cents": 500,
 	"shipping_cents": 1000,
 	"expire_at": "2014-07-15T10:12:27-05:00",
+	"po_number": "abc123",
 	"accepts_payment_terms": null,
 	"finalize_on_create": null,
 	"invoice_on_create": "false",
@@ -74,14 +76,14 @@ class OrderTest extends PHPUnit_Framework_TestCase {
 
 	public function testToHashString() {
 		$this->assertEquals(
-			'asdf1234order12346000USD50010002014-07-15T10:12:27-05:00false',
+			'asdf1234order12346000USD50010002014-07-15T10:12:27-05:00abc123false',
 			$this->po->toHashString()
 		);
 	}
 
 	public function testToSecureString() {
 		$this->assertEquals(
-			'asdf1234order12346000USD50010002014-07-15T10:12:27-05:00falsea title4500',
+			'asdf1234order12346000USD50010002014-07-15T10:12:27-05:00abc123falsea title4500',
 			$this->po->toSecureString()
 		);
 	}
@@ -89,7 +91,7 @@ class OrderTest extends PHPUnit_Framework_TestCase {
 	public function testToSecureHash() {
 		Apruve\Client::init( 'a key', Apruve\Environment::DEV() );
 		$this->assertEquals(
-			hash( 'sha256', 'a keyasdf1234order12346000USD50010002014-07-15T10:12:27-05:00falsea title4500' ),
+			hash( 'sha256', 'a keyasdf1234order12346000USD50010002014-07-15T10:12:27-05:00abc123falsea title4500' ),
 			$this->po->toSecureHash()
 		);
 	}
@@ -240,6 +242,7 @@ class OrderTest extends PHPUnit_Framework_TestCase {
 			'shipping_cents'    => 1000,
 			'currency'          => 'USD',
 			'expire_at'         => '2014-07-15T10:12:27-05:00',
+			'po_number'         => 'abc123',
 			'order_items'       => [
 				[
 					'title'        => 'a title',
