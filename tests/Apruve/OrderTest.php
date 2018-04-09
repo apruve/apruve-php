@@ -76,14 +76,14 @@ class OrderTest extends PHPUnit_Framework_TestCase {
 
 	public function testToHashString() {
 		$this->assertEquals(
-			'asdf1234order12346000USD50010002014-07-15T10:12:27-05:00abc123false',
+			'asdf1234order12346000USD50010002014-07-15T10:12:27-05:00false',
 			$this->po->toHashString()
 		);
 	}
 
 	public function testToSecureString() {
 		$this->assertEquals(
-			'asdf1234order12346000USD50010002014-07-15T10:12:27-05:00abc123falsea title4500',
+			'asdf1234order12346000USD50010002014-07-15T10:12:27-05:00falsea title4500',
 			$this->po->toSecureString()
 		);
 	}
@@ -91,7 +91,7 @@ class OrderTest extends PHPUnit_Framework_TestCase {
 	public function testToSecureHash() {
 		Apruve\Client::init( 'a key', Apruve\Environment::DEV() );
 		$this->assertEquals(
-			hash( 'sha256', 'a keyasdf1234order12346000USD50010002014-07-15T10:12:27-05:00abc123falsea title4500' ),
+			hash( 'sha256', 'a keyasdf1234order12346000USD50010002014-07-15T10:12:27-05:00falsea title4500' ),
 			$this->po->toSecureHash()
 		);
 	}
