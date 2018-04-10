@@ -115,7 +115,7 @@ class ApruveClientTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	public function testGetUninstantiatedClient() {
-		$this->setExpectedException( 'InvalidArgumentException' );
+		$this->expectException( 'InvalidArgumentException' );
 		$client = new Apruve\Client();
 	}
 
