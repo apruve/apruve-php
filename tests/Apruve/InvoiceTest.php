@@ -7,7 +7,7 @@ require_once dirname( __FILE__ ) . '/../../src/Apruve/Environment.php';
 
 use Apruve\Invoice;
 
-class InvoiceTest extends PHPUnit_Framework_TestCase {
+class InvoiceTest extends \PHPUnit\Framework\TestCase {
 
 	public function testPropertiesAreDefined() {
 		$vars = get_class_vars( get_class( $this->invoice ) );

@@ -4,7 +4,7 @@ require_once dirname( __FILE__ ) . '/../../src/Apruve/OrderItem.php';
 
 use Apruve\OrderItem;
 
-class OrderItemTest extends PHPUnit_Framework_TestCase {
+class OrderItemTest extends \PHPUnit\Framework\TestCase {
 
 	public function testPropertiesAreDefined() {
 		$item_vars = get_class_vars( get_class( $this->item ) );

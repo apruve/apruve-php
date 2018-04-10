@@ -3,7 +3,7 @@
 require_once dirname( __FILE__ ) . '/../../src/Apruve/Client.php';
 require_once dirname( __FILE__ ) . '/../../src/Apruve/Environment.php';
 
-class ApruveClientTest extends PHPUnit_Framework_TestCase {
+class ApruveClientTest extends \PHPUnit\Framework\TestCase {
 	public static $AN_API_KEY = 'AnApiKey';
 
 	public function testGetEnvironment() {

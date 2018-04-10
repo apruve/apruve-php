@@ -8,7 +8,7 @@ require_once dirname( __FILE__ ) . '/../../src/Apruve/Environment.php';
 use Apruve\Order;
 use Apruve\OrderItem;
 
-class OrderTest extends PHPUnit_Framework_TestCase {
+class OrderTest extends \PHPUnit\Framework\TestCase {
 
 	public function testPropertiesAreDefined() {
 		$vars = get_class_vars( get_class( $this->po ) );

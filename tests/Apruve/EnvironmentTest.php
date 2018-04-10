@@ -2,7 +2,7 @@
 
 require_once dirname( __FILE__ ) . '/../../src/Apruve/Environment.php';
 
-class ApruveEnvironmentTest extends PHPUnit_Framework_TestCase {
+class ApruveEnvironmentTest extends \PHPUnit\Framework\TestCase {
 
 	public function testURLs() {
 		$this->assertEquals( 'https://app.apruve.com', Apruve\Environment::PROD );
