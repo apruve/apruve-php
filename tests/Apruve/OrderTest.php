@@ -8,7 +8,7 @@ require_once dirname( __FILE__ ) . '/../../src/Apruve/Environment.php';
 use Apruve\Order;
 use Apruve\OrderItem;
 
-class OrderTest extends PHPUnit_Framework_TestCase {
+class OrderTest extends \PHPUnit\Framework\TestCase {
 
 	public function testPropertiesAreDefined() {
 		$vars = get_class_vars( get_class( $this->po ) );
@@ -24,6 +24,7 @@ class OrderTest extends PHPUnit_Framework_TestCase {
 			'shipping_cents',
 			'currency',
 			'expire_at',
+			'po_number',
 			'accepts_payment_terms',
 			'finalize_on_create',
 			'invoice_on_create',
@@ -34,7 +35,7 @@ class OrderTest extends PHPUnit_Framework_TestCase {
 			'created_at',
 			'updated_at',
 		] );
-		$this->assertEquals( 19, count( $vars ) );
+		$this->assertEquals( 20, count( $vars ) );
 
 	}
 
@@ -49,6 +50,7 @@ class OrderTest extends PHPUnit_Framework_TestCase {
 	"tax_cents": 500,
 	"shipping_cents": 1000,
 	"expire_at": "2014-07-15T10:12:27-05:00",
+	"po_number": "abc123",
 	"accepts_payment_terms": null,
 	"finalize_on_create": null,
 	"invoice_on_create": "false",
@@ -240,6 +242,7 @@ class OrderTest extends PHPUnit_Framework_TestCase {
 			'shipping_cents'    => 1000,
 			'currency'          => 'USD',
 			'expire_at'         => '2014-07-15T10:12:27-05:00',
+			'po_number'         => 'abc123',
 			'order_items'       => [
 				[
 					'title'        => 'a title',

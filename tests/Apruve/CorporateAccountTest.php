@@ -6,7 +6,7 @@ require_once dirname( __FILE__ ) . '/../../src/Apruve/Environment.php';
 
 use Apruve\CorporateAccount;
 
-class CorporateAccountTest extends PHPUnit_Framework_TestCase {
+class CorporateAccountTest extends \PHPUnit\Framework\TestCase {
 
 	public function testPropertiesAreDefined() {
 		$vars = get_class_vars( get_class( $this->corporate_account ) );

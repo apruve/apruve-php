@@ -4,7 +4,7 @@ require_once dirname( __FILE__ ) . '/../../src/Apruve/ShipmentItem.php';
 
 use Apruve\ShipmentItem;
 
-class ShipmentItemTest extends PHPUnit_Framework_TestCase {
+class ShipmentItemTest extends \PHPUnit\Framework\TestCase {
 
 	public function testPropertiesAreDefined() {
 		$item_vars = get_class_vars( get_class( $this->shipmentItem ) );

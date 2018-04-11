@@ -5,7 +5,7 @@ require_once dirname( __FILE__ ) . '/../../src/Apruve/Client.php';
 
 use Apruve\SubscriptionAdjustment;
 
-class SubscriptionAdjustmentTest extends PHPUnit_Framework_TestCase {
+class SubscriptionAdjustmentTest extends \PHPUnit\Framework\TestCase {
 
 	public function testPropertiesAreDefined() {
 		$vars = get_class_vars( get_class( $this->subscription_adjustment ) );

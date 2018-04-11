@@ -25,6 +25,7 @@ class Order extends ApruveObject {
 		'tax_cents',
 		'shipping_cents',
 		'expire_at',
+		'po_number',
 		'accepts_payment_terms',
 		'finalize_on_create',
 		'invoice_on_create',
@@ -46,6 +47,7 @@ class Order extends ApruveObject {
 	var $shipping_cents;
 	var $currency;
 	var $expire_at;
+	var $po_number;
 	var $accepts_payment_terms;
 	var $finalize_on_create;
 	var $invoice_on_create = 'false';
@@ -116,6 +118,10 @@ class Order extends ApruveObject {
 
 	public function setExpireAt( $expire_at ) {
 		$this->expire_at = $expire_at;
+	}
+
+	public function setPoNumber( $po_number) {
+		$this->po_number = $po_number;
 	}
 
 	public function toSecureHash() {

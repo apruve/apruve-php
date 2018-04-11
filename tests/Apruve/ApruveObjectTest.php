@@ -23,7 +23,7 @@ class TestClass extends ApruveObject {
 	}
 }
 
-class ApruveObjectTest extends PHPUnit_Framework_TestCase {
+class ApruveObjectTest extends \PHPUnit\Framework\TestCase {
 
 	public function testPropertiesAreDefined() {
 		$vars = get_class_vars( get_class( $this->object ) );
