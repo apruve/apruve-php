@@ -13,12 +13,12 @@ class Invoice extends ApruveObject {
 		'currency',
 		'merchant_notes',
 		'invoice_items',
+        'tax_cents'
 	];
 	var $id;
 	var $order_id;
 	var $status;
 	var $amount_cents;
-	var $price_total_cents;
 	var $currency;
 	var $merchant_notes;
 	var $api_url;
@@ -26,6 +26,7 @@ class Invoice extends ApruveObject {
 	var $created_at;
 	var $updated_at;
 	var $invoice_items = [];
+    var $tax_cents;
 
 	public function __construct( $invoice = [], $client = null ) {
 		if ( array_key_exists( 'invoice_items', $invoice ) ) {

@@ -8,7 +8,6 @@ class InvoiceItem extends ApruveObject {
 
 	protected static $json_fields = [
 		'title',
-		'amount_cents',
 		'price_total_cents',
 		'quantity',
 		'price_ea_cents',

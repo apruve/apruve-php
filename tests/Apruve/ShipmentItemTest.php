@@ -11,7 +11,6 @@ class ShipmentItemTest extends \PHPUnit\Framework\TestCase {
 
 		$this->assertEquals( array_keys( $item_vars ), array(
 			'title',
-			'amount_cents',
 			'quantity',
 			'price_ea_cents',
 			'merchant_notes',
@@ -25,14 +24,13 @@ class ShipmentItemTest extends \PHPUnit\Framework\TestCase {
 			'price_total_cents',
 			'currency'
 		) );
-		$this->assertEquals( 14, count( $item_vars ) );
+		$this->assertEquals( 13, count( $item_vars ) );
 	}
 
 	public function testToJsonString() {
 		$this->assertJsonStringEqualsJsonString(
 			'{
           "title": "A title",
-          "amount_cents": 3400,
           "quantity": 1,
           "price_ea_cents": 3400,
           "merchant_notes": "some notes.",
@@ -52,7 +50,6 @@ class ShipmentItemTest extends \PHPUnit\Framework\TestCase {
 	protected function setUp() {
 		$this->shipmentItem = new ShipmentItem( [
 			'title'             => 'A title',
-			'amount_cents'      => 3400,
 			'quantity'          => 1,
 			'price_ea_cents'    => 3400,
 			'merchant_notes'    => 'some notes.',

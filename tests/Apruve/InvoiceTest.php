@@ -17,7 +17,6 @@ class InvoiceTest extends \PHPUnit\Framework\TestCase {
 			'order_id',
 			'status',
 			'amount_cents',
-			'price_total_cents',
 			'currency',
 			'merchant_notes',
 			'api_url',
@@ -25,6 +24,7 @@ class InvoiceTest extends \PHPUnit\Framework\TestCase {
 			'created_at',
 			'updated_at',
 			'invoice_items',
+            'tax_cents'
 		] );
 		$this->assertEquals( 12, count( $vars ) );
 
@@ -39,7 +39,7 @@ class InvoiceTest extends \PHPUnit\Framework\TestCase {
         "invoice_items": [
           {
             "title": "test",
-            "amount_cents": 100,
+            "price_total_cents": 100,
             "quantity" : 1,
             "price_ea_cents": 100,
             "merchant_notes": null,
@@ -47,10 +47,10 @@ class InvoiceTest extends \PHPUnit\Framework\TestCase {
             "variant_info": null,
             "sku": null,
             "vendor": null,
-            "view_product_url": null,
-            "price_total_cents": null
+            "view_product_url": null
           }
-        ]
+        ],
+         "tax_cents": null
        }',
 			$this->invoice->toJson()
 		);
@@ -122,10 +122,9 @@ class InvoiceTest extends \PHPUnit\Framework\TestCase {
 			"invoice_items"  => [
 				[
 					'title'          => 'test',
-					'amount_cents'   => 100,
+					'price_total_cents'   => 100,
 					'quantity'       => 1,
 					'price_ea_cents' => 100
-
 				]
 			]
 		] );

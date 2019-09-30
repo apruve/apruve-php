@@ -8,7 +8,6 @@ class ShipmentItem extends ApruveObject {
 
 	protected static $hash_order = [
 		'title',
-		'amount_cents',
 		'price_total_cents',
 		'quantity',
 		'price_ea_cents',
@@ -26,7 +25,6 @@ class ShipmentItem extends ApruveObject {
 	];
 	protected static $json_fields = [
 		'title',
-		'amount_cents',
 		'price_total_cents',
 		'quantity',
 		'price_ea_cents',
@@ -43,7 +41,6 @@ class ShipmentItem extends ApruveObject {
 		'currency',
 	];
 	var $title;
-	var $amount_cents;
 	var $quantity;
 	var $price_ea_cents;
 	var $merchant_notes;
