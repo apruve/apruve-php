@@ -28,7 +28,6 @@ class InvoiceItemTest extends \PHPUnit\Framework\TestCase {
 		$this->assertJsonStringEqualsJsonString(
 			'{
           "title": "A title",
-          "amount_cents": 3400,
           "price_total_cents": 3400,
           "quantity": 1,
           "price_ea_cents": 3400,
@@ -45,7 +44,6 @@ class InvoiceItemTest extends \PHPUnit\Framework\TestCase {
 	protected function setUp() {
 		$this->item = new InvoiceItem( [
 			'title'             => 'A title',
-			'amount_cents'      => 3400,
 			'price_total_cents' => 3400,
 			'quantity'          => 1,
 			'price_ea_cents'    => 3400,

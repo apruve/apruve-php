@@ -34,8 +34,10 @@ class OrderTest extends \PHPUnit\Framework\TestCase {
 			'view_url',
 			'created_at',
 			'updated_at',
+            'shopper_id',
+            'customer_id'
 		] );
-		$this->assertEquals( 20, count( $vars ) );
+		$this->assertEquals( 22, count( $vars ) );
 
 	}
 
@@ -57,9 +59,9 @@ class OrderTest extends \PHPUnit\Framework\TestCase {
 	"payment_term": [],
 	"order_items": [{
 		"title": "a title",
-		"amount_cents": 4500,
-		"price_ea_cents": null,
-		"quantity": null,
+		"price_total_cents": 4500,
+		"price_ea_cents": 4500,
+		"quantity": 1,
 		"merchant_notes": null,
 		"description": null,
 		"variant_info": null,
@@ -83,7 +85,7 @@ class OrderTest extends \PHPUnit\Framework\TestCase {
 
 	public function testToSecureString() {
 		$this->assertEquals(
-			'asdf1234order12346000USD50010002014-07-15T10:12:27-05:00falsea title4500',
+			'asdf1234order12346000USD50010002014-07-15T10:12:27-05:00falsea title450045001',
 			$this->po->toSecureString()
 		);
 	}
@@ -91,7 +93,7 @@ class OrderTest extends \PHPUnit\Framework\TestCase {
 	public function testToSecureHash() {
 		Apruve\Client::init( 'a key', Apruve\Environment::DEV() );
 		$this->assertEquals(
-			hash( 'sha256', 'a keyasdf1234order12346000USD50010002014-07-15T10:12:27-05:00falsea title4500' ),
+			hash( 'sha256', 'a keyasdf1234order12346000USD50010002014-07-15T10:12:27-05:00falsea title450045001' ),
 			$this->po->toSecureHash()
 		);
 	}
@@ -158,8 +160,10 @@ class OrderTest extends \PHPUnit\Framework\TestCase {
 				       'order_items'  => [
 					       [
 						       'title'        => 'a title',
-						       'amount_cents' => 4500,
+						       'price_total_cents' => 4500,
+						       'price_ea_cents' => 4500,
 						       'order_id'     => 'id',
+                               'quantity'     => 1
 					       ]
 				       ]
 			       ],
@@ -246,8 +250,10 @@ class OrderTest extends \PHPUnit\Framework\TestCase {
 			'order_items'       => [
 				[
 					'title'        => 'a title',
-					'amount_cents' => 4500,
+					'price_total_cents' => 4500,
+					'price_ea_cents' => 4500,
 					'order_id'     => 'id',
+                    'quantity'     => 1
 				]
 			],
 		] );

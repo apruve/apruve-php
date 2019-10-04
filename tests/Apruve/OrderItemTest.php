@@ -37,7 +37,7 @@ class OrderItemTest extends \PHPUnit\Framework\TestCase {
 		$this->assertJsonStringEqualsJsonString(
 			'{
           "title": "A title",
-          "amount_cents": 3400,
+          "price_total_cents": 3400,
           "price_ea_cents": 3400,
           "quantity": 1,
           "merchant_notes": "some notes.",
@@ -54,7 +54,7 @@ class OrderItemTest extends \PHPUnit\Framework\TestCase {
 		$this->item = new OrderItem( [
 			'title'             => 'A title',
 			'sku'               => 'sku',
-			'amount_cents' => 3400,
+			'price_total_cents' => 3400,
 			'price_ea_cents'    => 3400,
 			'quantity'          => 1,
 			'merchant_notes'    => 'some notes.',

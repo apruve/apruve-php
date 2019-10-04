@@ -55,7 +55,6 @@ class ShipmentTest extends \PHPUnit\Framework\TestCase {
           "shipment_items": [
           {
             "title": "a title",
-            "amount_cents": 4500,
             "price_ea_cents": null,
             "quantity": null,
             "merchant_notes": null,

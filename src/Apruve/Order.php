@@ -57,6 +57,8 @@ class Order extends ApruveObject {
 	var $view_url;
 	var $created_at;
 	var $updated_at;
+    var $shopper_id;
+    var $customer_id;
 
 	public function __construct( $order = [], $client = null ) {
 		if ( array_key_exists( 'order_items', $order ) ) {
@@ -94,7 +96,6 @@ class Order extends ApruveObject {
 
 	public static function cancel( $apruveOrderId ) {
 		$client = new Client();
-		echo sprintf( __( self::$CANCEL_PATH, $apruveOrderId ) );
 		$response = $client->post( sprintf( __( self::$CANCEL_PATH ), $apruveOrderId ), '' );
 
 		return $response[0] == 200;
