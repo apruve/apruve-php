@@ -26,7 +26,7 @@ class Environment {
 	}
 
 	public function getJsUrl() {
-		return $this->baseUrl . '/js/apruve.js';
+		return $this->baseUrl . '/js/v4/apruve.js';
 	}
 
 	public function getApiUrl() {
